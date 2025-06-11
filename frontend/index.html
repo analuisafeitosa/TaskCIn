@@ -19,15 +19,37 @@
             <span id="closeModal" class="close">&times;</span>
             <h2 id="modalTitle">Add Task</h2>
             <form id="taskForm">
-                <input type="text" id="modalTaskTitle" placeholder="Title" required><br>
-                <textarea id="modalTaskDesc" placeholder="Description"></textarea><br>
-                <input type="date" id="modalTaskDeadline"><br>
-                <select id="modalTaskUrgency">
-                    <option value="low">Low urgency</option>
-                    <option value="medium">Medium urgency</option>
-                    <option value="high">High urgency</option>
+                <select id="modalTaskTipo">
+                    <option value="tarefa">Tarefa</option>
+                    <option value="prova">Prova</option>
+                    <option value="projeto">Projeto</option>
+                    <option value="relatorio">Relatório</option>
                 </select><br>
-                <button type="submit" id="saveTaskBtn">Save</button>
+                <input type="text" id="modalTaskTitle" placeholder="Título" required><br>
+                <div id="tarefaFields">
+                    <textarea id="modalTaskDesc" placeholder="Descrição"></textarea><br>
+                    <input type="date" id="modalTaskDeadline"><br>
+                    <select id="modalTaskUrgency">
+                        <option value="low">Baixa urgência</option>
+                        <option value="medium">Média urgência</option>
+                        <option value="high">Alta urgência</option>
+                    </select><br>
+                </div>
+                <div id="provaFields" style="display:none;">
+                    <input type="date" id="modalProvaDate" placeholder="Data"><br>
+                    <input type="text" id="modalProvaMateria" placeholder="Matéria"><br>
+                </div>
+                <div id="projetoFields" style="display:none;">
+                    <input type="date" id="modalProjetoDate" placeholder="Data"><br>
+                    <input type="text" id="modalProjetoMateria" placeholder="Matéria"><br>
+                    <input type="text" id="modalProjetoComplexidade" placeholder="Complexidade"><br>
+                </div>
+                <div id="relatorioFields" style="display:none;">
+                    <input type="date" id="modalRelatorioDate" placeholder="Data"><br>
+                    <input type="text" id="modalRelatorioMateria" placeholder="Matéria"><br>
+                    <input type="text" id="modalRelatorioPlataforma" placeholder="Plataforma"><br>
+                </div>
+                <button type="submit" id="saveTaskBtn">Salvar</button>
             </form>
         </div>
     </div>
