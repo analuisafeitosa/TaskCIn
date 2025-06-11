@@ -1,0 +1,15 @@
+{
+  "name": "todo-list-app",
+  "version": "1.0.0",
+  "description": "A simple to-do list application with a persistent backend using C++ and JavaScript.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "body-parser": "^1.19.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

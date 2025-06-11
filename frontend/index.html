@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Application</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <button id="addTaskButton">Add Task</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <!-- Modal para adicionar/editar tarefa -->
+    <div id="taskModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2 id="modalTitle">Add Task</h2>
+            <form id="taskForm">
+                <input type="text" id="modalTaskTitle" placeholder="Title" required><br>
+                <textarea id="modalTaskDesc" placeholder="Description"></textarea><br>
+                <input type="date" id="modalTaskDeadline"><br>
+                <select id="modalTaskUrgency">
+                    <option value="low">Low urgency</option>
+                    <option value="medium">Medium urgency</option>
+                    <option value="high">High urgency</option>
+                </select><br>
+                <button type="submit" id="saveTaskBtn">Save</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
