@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const { exec } = require('child_process');
 const path = require('path');
 
+// Determine binary name on Windows vs other platforms
+const todoBin = path.join(__dirname, `todo_storage${process.platform === 'win32' ? '.exe' : ''}`);
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -10,7 +13,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.get('/api/todos', (req, res) => {
-    exec('todo_storage.exe get', { cwd: __dirname }, (error, stdout, stderr) => {
+    exec(`"${todoBin}" get`, { cwd: __dirname }, (error, stdout, stderr) => {
         if (error) {
             console.error(`Error executing C++ code: ${error}`);
             return res.status(500).send('Internal Server Error');
@@ -21,7 +24,7 @@ app.get('/api/todos', (req, res) => {
 
 app.post('/api/todos', (req, res) => {
     const { tipo, task, description, deadline, urgency, materia, complexidade, plataforma } = req.body;
-    let cmd = `todo_storage.exe add "${tipo}"`;
+    let cmd = `"${todoBin}" add "${tipo}"`;
     if (tipo === "tarefa") {
         cmd += ` "${task}" "${description || ''}" "${deadline || ''}" "${urgency || 'low'}"`;
     } else if (tipo === "prova") {
@@ -44,7 +47,7 @@ app.put('/api/todos/:id', (req, res) => {
     const todoId = req.params.id;
     const { task, description, deadline, urgency } = req.body;
     exec(
-        `todo_storage.exe edit ${todoId} "${task.replace(/"/g, '\\"')}" "${(description || '').replace(/"/g, '\\"')}" "${deadline || ''}" "${urgency || 'low'}"`,
+        `"${todoBin}" edit ${todoId} "${task.replace(/"/g, '\\"')}" "${(description || '').replace(/"/g, '\\"')}" "${deadline || ''}" "${urgency || 'low'}"`,
         { cwd: __dirname },
         (error) => {
             if (error) {
@@ -58,7 +61,7 @@ app.put('/api/todos/:id', (req, res) => {
 
 app.delete('/api/todos/:id', (req, res) => {
     const todoId = req.params.id;
-    exec(`todo_storage.exe delete ${todoId}`, { cwd: __dirname }, (error) => {
+    exec(`"${todoBin}" delete ${todoId}`, { cwd: __dirname }, (error) => {
         if (error) {
             console.error(`Error executing C++ code: ${error}`);
             return res.status(500).send('Internal Server Error');
