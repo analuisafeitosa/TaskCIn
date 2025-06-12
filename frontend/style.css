@@ -110,3 +110,68 @@ select, input[type="date"] {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
+/* Sidebar styles */
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    padding-top: 20px;
+    transition: 0.3s;
+}
+
+.sidebar a {
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #555;
+}
+
+.sidebar a.active {
+    background-color: #4CAF50;
+}
+
+/* Adjust main content to accommodate sidebar */
+.content {
+    margin-left: 200px;
+    padding: 20px;
+}
+
+.container {
+    margin-left: 200px;
+    max-width: 800px;
+    padding: 20px;
+}
+
+/* Responsive layout */
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding-top: 0;
+    }
+    .sidebar a {
+        float: left;
+    }
+    .content, .container {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .sidebar a {
+        text-align: center;
+        float: none;
+    }
+}
