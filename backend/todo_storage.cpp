@@ -27,34 +27,34 @@ std::vector<std::shared_ptr<TodoItem>> loadTodos() {
                 std::string tipo = j.value("tipo", "tarefa");
                 if (tipo == "tarefa") {
                     auto t = std::make_shared<Tarefa>();
-                    t->task = j.value("task", "");
-                    t->description = j.value("description", "");
-                    t->deadline = j.value("deadline", "");
-                    t->urgency = j.value("urgency", "");
-                    t->completed = j.value("completed", false);
+                    t->setTask(j.value("task", ""));
+                    t->setDescription(j.value("description", ""));
+                    t->setDeadline(j.value("deadline", ""));
+                    t->setUrgency(j.value("urgency", ""));
+                    t->setCompleted(j.value("completed", false));
                     todos.push_back(t);
                 } else if (tipo == "prova") {
                     auto t = std::make_shared<Prova>();
-                    t->task = j.value("task", "");
-                    t->deadline = j.value("deadline", "");
-                    t->materia = j.value("materia", "");
-                    t->completed = j.value("completed", false);
+                    t->setTask(j.value("task", ""));
+                    t->setDeadline(j.value("deadline", ""));
+                    t->setMateria(j.value("materia", ""));
+                    t->setCompleted(j.value("completed", false));
                     todos.push_back(t);
                 } else if (tipo == "projeto") {
                     auto t = std::make_shared<Projeto>();
-                    t->task = j.value("task", "");
-                    t->deadline = j.value("deadline", "");
-                    t->materia = j.value("materia", "");
-                    t->complexidade = j.value("complexidade", "");
-                    t->completed = j.value("completed", false);
+                    t->setTask(j.value("task", ""));
+                    t->setDeadline(j.value("deadline", ""));
+                    t->setMateria(j.value("materia", ""));
+                    t->setComplexidade(j.value("complexidade", ""));
+                    t->setCompleted(j.value("completed", false));
                     todos.push_back(t);
                 } else if (tipo == "relatorio") {
                     auto t = std::make_shared<Relatorio>();
-                    t->task = j.value("task", "");
-                    t->deadline = j.value("deadline", "");
-                    t->materia = j.value("materia", "");
-                    t->plataforma = j.value("plataforma", "");
-                    t->completed = j.value("completed", false);
+                    t->setTask(j.value("task", ""));
+                    t->setDeadline(j.value("deadline", ""));
+                    t->setMateria(j.value("materia", ""));
+                    t->setPlataforma(j.value("plataforma", ""));
+                    t->setCompleted(j.value("completed", false));
                     todos.push_back(t);
                 }
             }
@@ -98,34 +98,34 @@ int main(int argc, char* argv[]) {
         std::shared_ptr<TodoItem> item;
         if (tipo == "tarefa" && argc >= 7) {
             auto t = std::make_shared<Tarefa>();
-            t->task = argv[3];
-            t->description = argv[4];
-            t->deadline = argv[5];
-            t->urgency = argv[6];
-            t->completed = false;
+            t->setTask(argv[3]);
+            t->setDescription(argv[4]);
+            t->setDeadline(argv[5]);
+            t->setUrgency(argv[6]);
+            t->setCompleted(false);
             item = t;
         } else if (tipo == "prova" && argc >= 6) {
             auto t = std::make_shared<Prova>();
-            t->task = argv[3];
-            t->deadline = argv[4];
-            t->materia = argv[5];
-            t->completed = false;
+            t->setTask(argv[3]);
+            t->setDeadline(argv[4]);
+            t->setMateria(argv[5]);
+            t->setCompleted(false);
             item = t;
         } else if (tipo == "projeto" && argc >= 7) {
             auto t = std::make_shared<Projeto>();
-            t->task = argv[3];
-            t->deadline = argv[4];
-            t->materia = argv[5];
-            t->complexidade = argv[6];
-            t->completed = false;
+            t->setTask(argv[3]);
+            t->setDeadline(argv[4]);
+            t->setMateria(argv[5]);
+            t->setComplexidade(argv[6]);
+            t->setCompleted(false);
             item = t;
         } else if (tipo == "relatorio" && argc >= 7) {
             auto t = std::make_shared<Relatorio>();
-            t->task = argv[3];
-            t->deadline = argv[4];
-            t->materia = argv[5];
-            t->plataforma = argv[6];
-            t->completed = false;
+            t->setTask(argv[3]);
+            t->setDeadline(argv[4]);
+            t->setMateria(argv[5]);
+            t->setPlataforma(argv[6]);
+            t->setCompleted(false);
             item = t;
         } else {
             std::cerr << "Invalid arguments for type.\n";
@@ -141,34 +141,34 @@ int main(int argc, char* argv[]) {
     if (idx >= 0 && idx < todos.size()) {
         if (tipo == "tarefa" && argc >= 8) {
             auto t = std::make_shared<Tarefa>();
-            t->task = argv[4];
-            t->description = argv[5];
-            t->deadline = argv[6];
-            t->urgency = argv[7];
-            t->completed = false;
+            t->setTask(argv[4]);
+            t->setDescription(argv[5]);
+            t->setDeadline(argv[6]);
+            t->setUrgency(argv[7]);
+            t->setCompleted(false);
             todos[idx] = t;
         } else if (tipo == "prova" && argc >= 7) {
             auto t = std::make_shared<Prova>();
-            t->task = argv[4];
-            t->deadline = argv[5];
-            t->materia = argv[6];
-            t->completed = false;
+            t->setTask(argv[4]);
+            t->setDeadline(argv[5]);
+            t->setMateria(argv[6]);
+            t->setCompleted(false);
             todos[idx] = t;
         } else if (tipo == "projeto" && argc >= 8) {
             auto t = std::make_shared<Projeto>();
-            t->task = argv[4];
-            t->deadline = argv[5];
-            t->materia = argv[6];
-            t->complexidade = argv[7];
-            t->completed = false;
+            t->setTask(argv[4]);
+            t->setDeadline(argv[5]);
+            t->setMateria(argv[6]);
+            t->setComplexidade(argv[7]);
+            t->setCompleted(false);
             todos[idx] = t;
         } else if (tipo == "relatorio" && argc >= 8) {
             auto t = std::make_shared<Relatorio>();
-            t->task = argv[4];
-            t->deadline = argv[5];
-            t->materia = argv[6];
-            t->plataforma = argv[7];
-            t->completed = false;
+            t->setTask(argv[4]);
+            t->setDeadline(argv[5]);
+            t->setMateria(argv[6]);
+            t->setPlataforma(argv[7]);
+            t->setCompleted(false);
             todos[idx] = t;
         } else {
             std::cerr << "Invalid arguments for type.\n";

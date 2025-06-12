@@ -1,14 +1,14 @@
 #include "Projeto.h"
 
-Projeto::Projeto() { tipo = "projeto"; }
+Projeto::Projeto() { setTipo("projeto"); }
 
 void Projeto::to_json(nlohmann::json& j) const {
     j = nlohmann::json{
-        {"tipo", tipo},
-        {"task", task},
-        {"deadline", deadline},
-        {"materia", materia},
-        {"complexidade", complexidade},
-        {"completed", completed}
+        {"tipo", getTipo()},
+        {"task", getTask()},
+        {"deadline", getDeadline()},
+        {"materia", getMateria()},
+        {"complexidade", getComplexidade()},
+        {"completed", isCompleted()}
     };
 }

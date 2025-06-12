@@ -45,18 +45,24 @@ app.post('/api/todos', (req, res) => {
 
 app.put('/api/todos/:id', (req, res) => {
     const todoId = req.params.id;
-    const { task, description, deadline, urgency } = req.body;
-    exec(
-        `"${todoBin}" edit ${todoId} "${task.replace(/"/g, '\\"')}" "${(description || '').replace(/"/g, '\\"')}" "${deadline || ''}" "${urgency || 'low'}"`,
-        { cwd: __dirname },
-        (error) => {
-            if (error) {
-                console.error(`Error executing C++ code: ${error}`);
-                return res.status(500).send('Internal Server Error');
-            }
-            res.status(200).send('Todo edited');
+    const { tipo, task, description, deadline, urgency, materia, complexidade, plataforma } = req.body;
+    let cmd = `"${todoBin}" edit ${todoId} "${tipo}"`;
+    if (tipo === "tarefa") {
+        cmd += ` "${task.replace(/"/g, '\\"')}" "${(description || '').replace(/"/g, '\\"')}" "${deadline || ''}" "${urgency || 'low'}"`;
+    } else if (tipo === "prova") {
+        cmd += ` "${task.replace(/"/g, '\\"')}" "${deadline || ''}" "${materia || ''}"`;
+    } else if (tipo === "projeto") {
+        cmd += ` "${task.replace(/"/g, '\\"')}" "${deadline || ''}" "${materia || ''}" "${complexidade || ''}"`;
+    } else if (tipo === "relatorio") {
+        cmd += ` "${task.replace(/"/g, '\\"')}" "${deadline || ''}" "${materia || ''}" "${plataforma || ''}"`;
+    }
+    exec(cmd, { cwd: __dirname }, (error) => {
+        if (error) {
+            console.error(`Error executing C++ code: ${error}`);
+            return res.status(500).send('Internal Server Error');
         }
-    );
+        res.status(200).send('Todo edited');
+    });
 });
 
 app.delete('/api/todos/:id', (req, res) => {
