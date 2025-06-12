@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 20px;
 }
@@ -30,7 +30,7 @@ input[type="text"] {
 button {
     width: 100%;
     padding: 10px;
-    background-color: #5cb85c;
+    background-color: #910101;
     color: white;
     border: none;
     border-radius: 4px;
@@ -38,7 +38,7 @@ button {
 }
 
 button:hover {
-    background-color: #4cae4c;
+    background-color: #700000;
 }
 
 .todo-item {
@@ -54,22 +54,22 @@ button:hover {
 }
 
 .todo-item button {
-    background-color: #d9534f;
+    background-color: #910101;
     width: auto;
     margin-left: 5px;
     padding: 6px 12px;
 }
 
 .todo-item button.edit-btn {
-    background-color: #0275d8;
+    background-color: #610000;
 }
 
 .todo-item button.edit-btn:hover {
-    background-color: #025aa5;
+    background-color: #4d0000;
 }
 
 .todo-item button:hover {
-    background-color: #c9302c;
+    background-color: #700000;
 }
 
 /* Modal styles */
@@ -109,4 +109,79 @@ select, input[type="date"] {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+/* Sidebar styles */
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #910101;
+    padding-top: 0;
+    transition: 0.3s;
+}
+
+.sidebar-title {
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 24px;
+    background-color: #700000;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #b30000;
+}
+
+.sidebar a.active {
+    background-color: #610000;
+}
+
+/* Adjust main content to accommodate sidebar */
+.content {
+    margin-left: 200px;
+    padding: 20px;
+}
+
+.container {
+    margin-left: 200px;
+    max-width: 800px;
+    padding: 20px;
+}
+
+/* Responsive layout */
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding-top: 0;
+    }
+    .sidebar a {
+        float: left;
+    }
+    .content, .container {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .sidebar a {
+        text-align: center;
+        float: none;
+    }
 }
