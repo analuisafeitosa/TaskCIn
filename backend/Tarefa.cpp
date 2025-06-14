@@ -1,14 +1,13 @@
 #include "Tarefa.h"
 
-Tarefa::Tarefa() { setTipo("tarefa"); }
-
+// Converte os dados da tarefa para o formato JSON
 void Tarefa::to_json(nlohmann::json& j) const {
     j = nlohmann::json{
-        {"tipo", getTipo()},
-        {"task", getTask()},
-        {"description", getDescription()},
-        {"deadline", getDeadline()},
-        {"urgency", getUrgency()},
-        {"completed", isCompleted()}
+        {"tipo", getTipo()},              // Tipo da atividade (tarefa)
+        {"task", getTask()},              // Título da tarefa
+        {"description", getDescription()},// Descrição da tarefa
+        {"deadline", getDeadline()},      // Prazo da tarefa
+        {"urgency", getUrgency()},        // Urgência da tarefa
+        {"completed", isCompleted()}      // Status de conclusão
     };
 }

@@ -3,9 +3,26 @@
 
 #include "TodoItem.h"
 
+// Classe para tarefas gerais, com descrição e nível de urgência
 class Tarefa : public TodoItem {
 public:
-    Tarefa();
+    // Construtor padrão: cria uma tarefa vazia com urgência baixa
+    Tarefa() : TodoItem(), description(""), urgency("low") {
+        setTipo("tarefa");
+    }
+    
+    // Construtor com parâmetros: inicializa todos os campos da tarefa
+    Tarefa(const std::string& task, const std::string& description,
+           const std::string& deadline, const std::string& urgency = "low")
+        : TodoItem(task, deadline, "tarefa"), 
+          description(description), urgency(urgency) {}
+    
+    // Copy constructor
+    Tarefa(const Tarefa& other)
+        : TodoItem(other), 
+          description(other.description), 
+          urgency(other.urgency) {}
+
     void to_json(nlohmann::json& j) const override;
 
     // Getters
