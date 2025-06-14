@@ -1,14 +1,13 @@
 #include "Projeto.h"
 
-Projeto::Projeto() { setTipo("projeto"); }
-
+// Converte os dados do projeto para o formato JSON
 void Projeto::to_json(nlohmann::json& j) const {
     j = nlohmann::json{
-        {"tipo", getTipo()},
-        {"task", getTask()},
-        {"deadline", getDeadline()},
-        {"materia", getMateria()},
-        {"complexidade", getComplexidade()},
-        {"completed", isCompleted()}
+        {"tipo", getTipo()},                // Tipo da atividade (projeto)
+        {"task", getTask()},                // Título do projeto
+        {"deadline", getDeadline()},        // Prazo do projeto
+        {"materia", getMateria()},          // Matéria do projeto
+        {"complexidade", getComplexidade()},// Nível de complexidade
+        {"completed", isCompleted()}        // Status de conclusão
     };
 }

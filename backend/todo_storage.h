@@ -14,7 +14,7 @@ using json = nlohmann::json;
 
 const std::string DATA_FILE = "data/todos.json";
 
-// Função para criar o objeto correto a partir do JSON
+// Função que converte JSON para o objeto apropriado (Tarefa, Prova, etc)
 std::shared_ptr<TodoItem> createFromJson(const json& j) {
     std::string tipo = j.value("tipo", "tarefa");
     if (tipo == "tarefa") {
@@ -52,6 +52,7 @@ std::shared_ptr<TodoItem> createFromJson(const json& j) {
     return nullptr;
 }
 
+// Carrega todas as atividades do arquivo JSON
 std::vector<std::shared_ptr<TodoItem>> loadTodos() {
     std::ifstream file(DATA_FILE);
     json todos_json = json::array();
@@ -69,6 +70,7 @@ std::vector<std::shared_ptr<TodoItem>> loadTodos() {
     return todos;
 }
 
+// Salva todas as atividades no arquivo JSON
 void saveTodos(const std::vector<std::shared_ptr<TodoItem>>& todos) {
     json todos_json = json::array();
     for (const auto& item : todos) {

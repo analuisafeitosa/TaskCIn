@@ -1,14 +1,13 @@
 #include "Relatorio.h"
 
-Relatorio::Relatorio() { setTipo("relatorio"); }
-
+// Converte os dados do relatório para o formato JSON
 void Relatorio::to_json(nlohmann::json& j) const {
     j = nlohmann::json{
-        {"tipo", getTipo()},
-        {"task", getTask()},
-        {"deadline", getDeadline()},
-        {"materia", getMateria()},
-        {"plataforma", getPlataforma()},
-        {"completed", isCompleted()}
+        {"tipo", getTipo()},               // Tipo da atividade (relatório)
+        {"task", getTask()},               // Título do relatório
+        {"deadline", getDeadline()},       // Prazo do relatório
+        {"materia", getMateria()},         // Matéria do relatório
+        {"plataforma", getPlataforma()},   // Plataforma de entrega
+        {"completed", isCompleted()}       // Status de conclusão
     };
 }
