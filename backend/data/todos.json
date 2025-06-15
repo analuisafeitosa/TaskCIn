@@ -1,33 +1,93 @@
 [
     {
         "completed": false,
-        "complexidade": "dificil",
         "deadline": "",
-        "materia": "edii",
-        "task": "oiiiii",
-        "tipo": "projeto"
+        "description": "",
+        "important": true,
+        "task": "sofi",
+        "tipo": "tarefa",
+        "urgent": true
     },
     {
         "completed": false,
-        "complexidade": "l",
-        "deadline": "2025-06-10",
-        "materia": "k",
-        "task": "oiiiii",
-        "tipo": "projeto"
-    },
-    {
-        "completed": false,
-        "deadline": "",
-        "materia": "",
-        "task": "lllllllllll",
-        "tipo": "prova"
-    },
-    {
-        "completed": false,
-        "complexidade": "dificil",
-        "deadline": "2025-06-27",
-        "materia": "math",
+        "deadline": "2025-06-19",
+        "important": true,
+        "materia": "may",
         "task": "teste",
-        "tipo": "projeto"
+        "tipo": "prova",
+        "urgent": false
+    },
+    {
+        "completed": false,
+        "deadline": "",
+        "description": "",
+        "important": false,
+        "task": "?",
+        "tipo": "tarefa",
+        "urgent": true
+    },
+    {
+        "completed": false,
+        "deadline": "",
+        "description": "",
+        "important": false,
+        "task": "?????????????????",
+        "tipo": "tarefa",
+        "urgent": false
+    },
+    {
+        "completed": false,
+        "deadline": "2025-06-27",
+        "description": "What",
+        "important": false,
+        "task": "MUAHAHAHAHHAHAHAHAHAHAHA",
+        "tipo": "tarefa",
+        "urgent": false
+    },
+    {
+        "completed": false,
+        "deadline": "",
+        "description": "",
+        "important": false,
+        "task": "A",
+        "tipo": "tarefa",
+        "urgent": false
+    },
+    {
+        "completed": false,
+        "deadline": "",
+        "description": "",
+        "important": false,
+        "task": "B",
+        "tipo": "tarefa",
+        "urgent": false
+    },
+    {
+        "completed": false,
+        "deadline": "",
+        "description": "",
+        "important": false,
+        "task": "C",
+        "tipo": "tarefa",
+        "urgent": false
+    },
+    {
+        "completed": false,
+        "deadline": "",
+        "description": "",
+        "important": false,
+        "task": "D",
+        "tipo": "tarefa",
+        "urgent": false
+    },
+    {
+        "completed": false,
+        "deadline": "2025-06-17",
+        "important": true,
+        "materia": "k",
+        "plataforma": "ll",
+        "task": "relatório",
+        "tipo": "relatorio",
+        "urgent": true
     }
 ]

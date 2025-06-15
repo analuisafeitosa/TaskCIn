@@ -1,10 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
     function fetchMatriz(){
-        console.log("bbbb")
                fetch('/api/todos')
             .then(res => res.json())
             .then(todos => {
-console.log(todos)
+                const faca = document.getElementById('faca');
+                const delegue = document.getElementById('delegue');
+                const programe = document.getElementById('programe');
+                const exclua = document.getElementById('exclua');
+
+                const tipoLabel = {
+                    tarefa: "Tarefa",
+                    prova: "Prova",
+                    projeto: "Projeto",
+                    relatorio: "Relatório"
+                };
+
+                todos.forEach(todo => { 
+                    const li = document.createElement('div');
+
+                    let info = `<strong>${todo.task || '(Sem título)'}</strong>`;
+                    info += `<span style="font-weight:bold;color:#0275d8;">Categoria: ${tipoLabel[todo.tipo] || todo.tipo}</span>`;
+
+                    if (todo.tipo === 'tarefa') {
+                        info += `<small><b>Descrição:</b> ${todo.description || '-'}</small>`;
+                        info += `<small><b>Prazo:</b> ${todo.deadline || '-'}</small>`;
+                    } else if (todo.tipo === 'prova') {
+                        info += `<small><b>Data:</b> ${todo.deadline || '-'}</small>`;
+                        info += `<small><b>Matéria:</b> ${todo.materia || '-'}</small>`;
+                    } else if (todo.tipo === 'projeto') {
+                        info += `<small><b>Data:</b> ${todo.deadline || '-'}</small>`;
+                        info += `<small><b>Matéria:</b> ${todo.materia || '-'}</small>`;
+                        info += `<small><b>Complexidade:</b> ${todo.complexidade || '-'}</small>`;
+                    } else if (todo.tipo === 'relatorio') {
+                        info += `<small><b>Data:</b> ${todo.deadline || '-'}</small>`;
+                        info += `<small><b>Matéria:</b> ${todo.materia || '-'}</small>`;
+                        info += `<small><b>Plataforma:</b> ${todo.plataforma || '-'}</small>`;
+                    }
+
+                    const infoDiv = document.createElement('div');
+                    infoDiv.style = 'display: flex; flex-direction: column; align-items: start; margin-left: 8px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #eee;';
+                    infoDiv.innerHTML = info;
+
+                    li.appendChild(infoDiv);
+
+                    if (todo.important == true && todo.urgent == true)
+                        faca.appendChild(li);
+                    else if (todo.important == true)
+                        programe.appendChild(li);
+                    else if (todo.urgent == true)
+                        delegue.appendChild(li);
+                    else
+                        exclua.appendChild(li);
+                })
             })
     }
     fetchMatriz();
@@ -20,7 +67,8 @@ console.log(todos)
     const modalTaskTitle = document.getElementById('modalTaskTitle');
     const modalTaskDesc = document.getElementById('modalTaskDesc');
     const modalTaskDeadline = document.getElementById('modalTaskDeadline');
-    const modalTaskUrgency = document.getElementById('modalTaskUrgency');
+    const modalTaskImportant = document.getElementById('modalTaskImportant');
+    const modalTaskUrgent = document.getElementById('modalTaskUrgent');    
     const modalProvaDate = document.getElementById('modalProvaDate');
     const modalProvaMateria = document.getElementById('modalProvaMateria');
     const modalProjetoDate = document.getElementById('modalProjetoDate');
@@ -44,12 +92,13 @@ console.log(todos)
     function openModal(edit = false, todo = {}) {
         taskModal.style.display = 'block';
         modalTitle.textContent = edit ? 'Editar atividade' : 'Adicionar atividade';
+        modalTaskImportant.checked = todo.important;
+        modalTaskUrgent.checked = todo.urgent;
         modalTaskTipo.value = todo.tipo || 'tarefa';
         showFields(modalTaskTipo.value);
         modalTaskTitle.value = todo.task || '';
         modalTaskDesc.value = todo.description || '';
         modalTaskDeadline.value = todo.deadline || '';
-        modalTaskUrgency.value = todo.urgency || 'low';
         modalProvaDate.value = todo.deadline || '';
         modalProvaMateria.value = todo.materia || '';
         modalProjetoDate.value = todo.deadline || '';
@@ -90,7 +139,7 @@ console.log(todos)
 
                     if (todo.tipo === 'tarefa') {
                         info += `<small><b>Descrição:</b> ${todo.description || '-'}</small><br>`;
-                        info += `<small><b>Prazo:</b> ${todo.deadline || '-'}</small><br>`;
+                        info += `<small><b>Prazo:</b> ${todo.deadline || '-'}</small>`;
                     } else if (todo.tipo === 'prova') {
                         info += `<small><b>Data:</b> ${todo.deadline || '-'}</small><br>`;
                         info += `<small><b>Matéria:</b> ${todo.materia || '-'}</small>`;
@@ -102,6 +151,14 @@ console.log(todos)
                         info += `<small><b>Data:</b> ${todo.deadline || '-'}</small><br>`;
                         info += `<small><b>Matéria:</b> ${todo.materia || '-'}</small><br>`;
                         info += `<small><b>Plataforma:</b> ${todo.plataforma || '-'}</small>`;
+                    }
+
+                    if (todo.important == true) {
+                        info += "<br><small><b>Importante</b></small>";
+                    }
+
+                    if (todo.urgent == true) {
+                        info += "<br><small><b>Urgente</b></small>";
                     }
 
                     const infoDiv = document.createElement('div');
@@ -132,12 +189,14 @@ console.log(todos)
     taskForm.onsubmit = (e) => {
         e.preventDefault();
         const tipo = modalTaskTipo.value;
-        let todo = { tipo };
+        const important = modalTaskImportant.checked;
+        const urgent = modalTaskUrgent.checked;
+        let todo = { tipo, important, urgent };
+
         if (tipo === 'tarefa') {
             todo.task = modalTaskTitle.value;
             todo.description = modalTaskDesc.value;
             todo.deadline = modalTaskDeadline.value;
-            todo.urgency = modalTaskUrgency.value;
         } else if (tipo === 'prova') {
             todo.task = modalTaskTitle.value;
             todo.deadline = modalProvaDate.value;

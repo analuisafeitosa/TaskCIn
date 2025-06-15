@@ -28,6 +28,8 @@ std::vector<std::shared_ptr<TodoItem>> loadTodos() {
                 if (tipo == "tarefa") {
                     auto t = std::make_shared<Tarefa>();
                     t->setTask(j.value("task", ""));
+                    t->setImportant(j.value("important", false));
+                    t->setUrgent(j.value("urgent", false));
                     t->setDescription(j.value("description", ""));
                     t->setDeadline(j.value("deadline", ""));
                     t->setCompleted(j.value("completed", false));
@@ -35,6 +37,8 @@ std::vector<std::shared_ptr<TodoItem>> loadTodos() {
                 } else if (tipo == "prova") {
                     auto t = std::make_shared<Prova>();
                     t->setTask(j.value("task", ""));
+                    t->setImportant(j.value("important", false));
+                    t->setUrgent(j.value("urgent", false));
                     t->setDeadline(j.value("deadline", ""));
                     t->setMateria(j.value("materia", ""));
                     t->setCompleted(j.value("completed", false));
@@ -42,6 +46,8 @@ std::vector<std::shared_ptr<TodoItem>> loadTodos() {
                 } else if (tipo == "projeto") {
                     auto t = std::make_shared<Projeto>();
                     t->setTask(j.value("task", ""));
+                    t->setImportant(j.value("important", false));
+                    t->setUrgent(j.value("urgent", false));
                     t->setDeadline(j.value("deadline", ""));
                     t->setMateria(j.value("materia", ""));
                     t->setComplexidade(j.value("complexidade", ""));
@@ -50,6 +56,8 @@ std::vector<std::shared_ptr<TodoItem>> loadTodos() {
                 } else if (tipo == "relatorio") {
                     auto t = std::make_shared<Relatorio>();
                     t->setTask(j.value("task", ""));
+                    t->setImportant(j.value("important", false));
+                    t->setUrgent(j.value("urgent", false));                    
                     t->setDeadline(j.value("deadline", ""));
                     t->setMateria(j.value("materia", ""));
                     t->setPlataforma(j.value("plataforma", ""));
@@ -89,40 +97,50 @@ int main(int argc, char* argv[]) {
         for (const auto& item : todos) {
             json j;
             item->to_json(j);
+            std::cerr << item->isImportant() << std::endl;
             todos_json.push_back(j);
         }
         std::cout << todos_json.dump();
     } else if (command == "add" && argc >= 4) {
         std::string tipo = argv[2];
         std::shared_ptr<TodoItem> item;
+
         if (tipo == "tarefa" && argc >= 7) {
             auto t = std::make_shared<Tarefa>();
-            t->setTask(argv[3]);
-            t->setDescription(argv[4]);
-            t->setDeadline(argv[5]);
+            t->setImportant(std::string(argv[3]) == std::string("true"));
+            t->setUrgent(std::string(argv[4]) == std::string("true"));
+            t->setTask(argv[3+2]);
+            t->setDescription(argv[4+2]);
+            t->setDeadline(argv[5+2]);
             t->setCompleted(false);
             item = t;
         } else if (tipo == "prova" && argc >= 6) {
             auto t = std::make_shared<Prova>();
-            t->setTask(argv[3]);
-            t->setDeadline(argv[4]);
-            t->setMateria(argv[5]);
+            t->setImportant(std::string(argv[3]) == std::string("true"));
+            t->setUrgent(std::string(argv[4]) == std::string("true"));
+            t->setTask(argv[3+2]);
+            t->setDeadline(argv[4+2]);
+            t->setMateria(argv[5+2]);
             t->setCompleted(false);
             item = t;
         } else if (tipo == "projeto" && argc >= 7) {
             auto t = std::make_shared<Projeto>();
-            t->setTask(argv[3]);
-            t->setDeadline(argv[4]);
-            t->setMateria(argv[5]);
-            t->setComplexidade(argv[6]);
+            t->setImportant(std::string(argv[3]) == std::string("true"));
+            t->setUrgent(std::string(argv[4]) == std::string("true"));            
+            t->setTask(argv[3+2]);
+            t->setDeadline(argv[4+2]);
+            t->setMateria(argv[5+2]);
+            t->setComplexidade(argv[6+2]);
             t->setCompleted(false);
             item = t;
         } else if (tipo == "relatorio" && argc >= 7) {
             auto t = std::make_shared<Relatorio>();
-            t->setTask(argv[3]);
-            t->setDeadline(argv[4]);
-            t->setMateria(argv[5]);
-            t->setPlataforma(argv[6]);
+            t->setImportant(std::string(argv[3]) == std::string("true"));
+            t->setUrgent(std::string(argv[4]) == std::string("true"));
+            t->setTask(argv[3+2]);
+            t->setDeadline(argv[4+2]);
+            t->setMateria(argv[5+2]);
+            t->setPlataforma(argv[6+2]);
             t->setCompleted(false);
             item = t;
         } else {
@@ -139,32 +157,40 @@ int main(int argc, char* argv[]) {
     if (idx >= 0 && idx < todos.size()) {
         if (tipo == "tarefa" && argc >= 8) {
             auto t = std::make_shared<Tarefa>();
-            t->setTask(argv[4]);
-            t->setDescription(argv[5]);
-            t->setDeadline(argv[6]);
+            t->setImportant(std::string(argv[4]) == std::string("true"));
+            t->setUrgent(std::string(argv[5]) == std::string("true"));
+            t->setTask(argv[4+2]);
+            t->setDescription(argv[5+2]);
+            t->setDeadline(argv[6+2]);
             t->setCompleted(false);
             todos[idx] = t;
         } else if (tipo == "prova" && argc >= 7) {
             auto t = std::make_shared<Prova>();
-            t->setTask(argv[4]);
-            t->setDeadline(argv[5]);
-            t->setMateria(argv[6]);
+            t->setImportant(std::string(argv[4]) == std::string("true"));
+            t->setUrgent(std::string(argv[5]) == std::string("true"));
+            t->setTask(argv[4+2]);
+            t->setDeadline(argv[5+2]);
+            t->setMateria(argv[6+2]);
             t->setCompleted(false);
             todos[idx] = t;
         } else if (tipo == "projeto" && argc >= 8) {
             auto t = std::make_shared<Projeto>();
-            t->setTask(argv[4]);
-            t->setDeadline(argv[5]);
-            t->setMateria(argv[6]);
-            t->setComplexidade(argv[7]);
+            t->setImportant(std::string(argv[4]) == std::string("true"));
+            t->setUrgent(std::string(argv[5]) == std::string("true"));            
+            t->setTask(argv[4+2]);
+            t->setDeadline(argv[5+2]);
+            t->setMateria(argv[6+2]);
+            t->setComplexidade(argv[7+2]);
             t->setCompleted(false);
             todos[idx] = t;
         } else if (tipo == "relatorio" && argc >= 8) {
             auto t = std::make_shared<Relatorio>();
-            t->setTask(argv[4]);
-            t->setDeadline(argv[5]);
-            t->setMateria(argv[6]);
-            t->setPlataforma(argv[7]);
+            t->setImportant(std::string(argv[4]) == std::string("true"));
+            t->setUrgent(std::string(argv[5]) == std::string("true"));            
+            t->setTask(argv[4+2]);
+            t->setDeadline(argv[5+2]);
+            t->setMateria(argv[6+2]);
+            t->setPlataforma(argv[7+2]);
             t->setCompleted(false);
             todos[idx] = t;
         } else {

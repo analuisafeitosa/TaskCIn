@@ -23,10 +23,10 @@ app.get('/api/todos', (req, res) => {
 });
 
 app.post('/api/todos', (req, res) => {
-    const { tipo, task, description, deadline, urgency, materia, complexidade, plataforma } = req.body;
-    let cmd = `"${todoBin}" add "${tipo}"`;
+    const { tipo, important, urgent, task, description, deadline, materia, complexidade, plataforma } = req.body;
+    let cmd = `"${todoBin}" add "${tipo}" "${important}" "${urgent}"`;
     if (tipo === "tarefa") {
-        cmd += ` "${task}" "${description || ''}" "${deadline || ''}" "${urgency || 'low'}"`;
+        cmd += ` "${task}" "${description || ''}" "${deadline || ''}"`;
     } else if (tipo === "prova") {
         cmd += ` "${task}" "${deadline || ''}" "${materia || ''}"`;
     } else if (tipo === "projeto") {
@@ -34,7 +34,8 @@ app.post('/api/todos', (req, res) => {
     } else if (tipo === "relatorio") {
         cmd += ` "${task}" "${deadline || ''}" "${materia || ''}" "${plataforma || ''}"`;
     }
-    exec(cmd, { cwd: __dirname }, (error) => {
+
+    exec(cmd, { cwd: __dirname }, (error, stdout, stderr) => {
         if (error) {
             console.error(`Error executing C++ code: ${error}`);
             return res.status(500).send('Internal Server Error');
@@ -45,10 +46,10 @@ app.post('/api/todos', (req, res) => {
 
 app.put('/api/todos/:id', (req, res) => {
     const todoId = req.params.id;
-    const { tipo, task, description, deadline, urgency, materia, complexidade, plataforma } = req.body;
-    let cmd = `"${todoBin}" edit ${todoId} "${tipo}"`;
+    const { tipo, task, important, urgent, description, deadline, materia, complexidade, plataforma } = req.body;
+    let cmd = `"${todoBin}" edit ${todoId} "${tipo}" "${important}" "${urgent}"`;
     if (tipo === "tarefa") {
-        cmd += ` "${task.replace(/"/g, '\\"')}" "${(description || '').replace(/"/g, '\\"')}" "${deadline || ''}" "${urgency || 'low'}"`;
+        cmd += ` "${task.replace(/"/g, '\\"')}" "${(description || '').replace(/"/g, '\\"')}" "${deadline || ''}"`;
     } else if (tipo === "prova") {
         cmd += ` "${task.replace(/"/g, '\\"')}" "${deadline || ''}" "${materia || ''}"`;
     } else if (tipo === "projeto") {
@@ -56,6 +57,7 @@ app.put('/api/todos/:id', (req, res) => {
     } else if (tipo === "relatorio") {
         cmd += ` "${task.replace(/"/g, '\\"')}" "${deadline || ''}" "${materia || ''}" "${plataforma || ''}"`;
     }
+
     exec(cmd, { cwd: __dirname }, (error) => {
         if (error) {
             console.error(`Error executing C++ code: ${error}`);
