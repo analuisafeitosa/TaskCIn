@@ -8,6 +8,8 @@ void Relatorio::to_json(nlohmann::json& j) const {
         {"deadline", getDeadline()},       // Prazo do relatório
         {"materia", getMateria()},         // Matéria do relatório
         {"plataforma", getPlataforma()},   // Plataforma de entrega
-        {"completed", isCompleted()}       // Status de conclusão
+        {"completed", isCompleted()},       // Status de conclusão
+        {"important", isImportant()},
+        {"urgent", isUrgent()}
     };
 }

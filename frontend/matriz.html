@@ -11,10 +11,36 @@
         <h1 class="sidebar-title">TaskCIn</h1>
         <a href="home.html">HOME</a>
         <a href="index.html">TAREFAS</a>
-        <a href="matriz.html" class="active">MATRIZ</a>
+        <a href="matriz.html" class="active">MATRIZ DE EISENHOWER</a>
     </div>
-    <div class="content">
-        <h1>Matriz</h1>
+    <div class="container">
+        <h1>Matriz de Eisenhower</h1>
+        <div>
+            <div style="width: 100%; display: flex; flex-direction: row; justify-content: start; font-weight: bold;"><p>Importância</p></div>
+            <div style="display: grid; grid-template-columns: 50% 50%; grid-template-rows: 400px 400px;">
+                <div class="matrix-quadrant" id="programe">
+                    <div class="quadrant-title">
+                        <p>PROGRAME</p>
+                    </div>
+                </div>
+                <div class="matrix-quadrant" id="faca">
+                    <div class="quadrant-title">
+                        <p>FAÇA</p>
+                    </div>
+                </div>
+                <div class="matrix-quadrant" id="exclua">
+                    <div class="quadrant-title">
+                        <p>EXCLUA</p>
+                    </div>
+                </div>
+                <div class="matrix-quadrant" id="delegue">
+                    <div class="quadrant-title">
+                        <p>DELEGUE</p>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 100%; display: flex; flex-direction: row; justify-content: end; font-weight: bold;"><p>Urgência</p></div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
