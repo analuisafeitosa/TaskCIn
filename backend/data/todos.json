@@ -1,15 +1,6 @@
 [
     {
         "completed": false,
-        "deadline": "",
-        "description": "",
-        "important": true,
-        "task": "sofi",
-        "tipo": "tarefa",
-        "urgent": true
-    },
-    {
-        "completed": false,
         "deadline": "2025-06-19",
         "important": true,
         "materia": "may",
@@ -73,15 +64,6 @@
     },
     {
         "completed": false,
-        "deadline": "",
-        "description": "",
-        "important": false,
-        "task": "D",
-        "tipo": "tarefa",
-        "urgent": false
-    },
-    {
-        "completed": false,
         "deadline": "2025-06-17",
         "important": true,
         "materia": "k",
@@ -89,5 +71,15 @@
         "task": "relatório",
         "tipo": "relatorio",
         "urgent": true
+    },
+    {
+        "completed": false,
+        "deadline": "",
+        "important": true,
+        "materia": "",
+        "plataforma": "",
+        "task": "relatorio 2",
+        "tipo": "relatorio",
+        "urgent": false
     }
 ]

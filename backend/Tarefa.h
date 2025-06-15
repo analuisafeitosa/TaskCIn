@@ -7,21 +7,20 @@
 class Tarefa : public TodoItem {
 public:
     // Construtor padrão: cria uma tarefa vazia com urgência baixa
-    Tarefa() : TodoItem(), description(""), urgency("low") {
+    Tarefa() : TodoItem(), description("") {
         setTipo("tarefa");
     }
     
     // Construtor com parâmetros: inicializa todos os campos da tarefa
     Tarefa(const std::string& task, const std::string& description,
-           const std::string& deadline, const std::string& urgency = "low")
+           const std::string& deadline)
         : TodoItem(task, deadline, "tarefa"), 
-          description(description), urgency(urgency) {}
+          description(description) {}
     
     // Copy constructor
     Tarefa(const Tarefa& other)
         : TodoItem(other), 
-          description(other.description), 
-          urgency(other.urgency) {}
+          description(other.description) {}
 
     void to_json(nlohmann::json& j) const override;
 
