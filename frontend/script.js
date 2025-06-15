@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
+    function fetchMatriz(){
+        console.log("bbbb")
+               fetch('/api/todos')
+            .then(res => res.json())
+            .then(todos => {
+console.log(todos)
+            })
+    }
+    fetchMatriz();
+    
+
     const addTaskButton = document.getElementById('addTaskButton');
     const taskList = document.getElementById('taskList');
     const taskModal = document.getElementById('taskModal');
@@ -32,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openModal(edit = false, todo = {}) {
         taskModal.style.display = 'block';
-        modalTitle.textContent = edit ? 'Editar Atividade' : 'Adicionar Atividade';
+        modalTitle.textContent = edit ? 'Editar atividade' : 'Adicionar atividade';
         modalTaskTipo.value = todo.tipo || 'tarefa';
         showFields(modalTaskTipo.value);
         modalTaskTitle.value = todo.task || '';
@@ -80,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (todo.tipo === 'tarefa') {
                         info += `<small><b>Descrição:</b> ${todo.description || '-'}</small><br>`;
                         info += `<small><b>Prazo:</b> ${todo.deadline || '-'}</small><br>`;
-                        info += `<small><b>Urgência:</b> ${todo.urgency || 'low'}</small>`;
                     } else if (todo.tipo === 'prova') {
                         info += `<small><b>Data:</b> ${todo.deadline || '-'}</small><br>`;
                         info += `<small><b>Matéria:</b> ${todo.materia || '-'}</small>`;
@@ -99,11 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     infoDiv.innerHTML = info;
 
                     const editBtn = document.createElement('button');
-                    editBtn.textContent = 'Edit';
+                    editBtn.textContent = 'Editar';
                     editBtn.onclick = () => openModal(true, { ...todo, idx });
 
                     const deleteBtn = document.createElement('button');
-                    deleteBtn.textContent = 'Delete';
+                    deleteBtn.textContent = 'Deletar';
                     deleteBtn.onclick = () => {
                         fetch(`/api/todos/${idx}`, { method: 'DELETE' })
                             .then(fetchTodos);

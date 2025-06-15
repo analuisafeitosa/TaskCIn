@@ -8,6 +8,8 @@ void Prova::to_json(nlohmann::json& j) const {
         {"task", getTask()},
         {"deadline", getDeadline()},
         {"materia", getMateria()},
-        {"completed", isCompleted()}
+        {"completed", isCompleted()},
+        {"important", isImportant()},
+        {"urgent", isUrgent()}
     };
 }

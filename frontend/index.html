@@ -11,11 +11,11 @@
         <h1 class="sidebar-title">TaskCIn</h1>
         <a href="home.html">HOME</a>
         <a href="index.html" class="active">TAREFAS</a>
-        <a href="matriz.html">MATRIZ</a>
+        <a href="matriz.html">MATRIZ DE EISENHOWER</a>
     </div>
     <div class="container">
         <h1>To-Do List</h1>
-        <button id="addTaskButton">Add Task</button>
+        <button id="addTaskButton">Adicionar atividade</button>
         <ul id="taskList"></ul>
     </div>
 
@@ -23,7 +23,7 @@
     <div id="taskModal" class="modal" style="display:none;">
         <div class="modal-content">
             <span id="closeModal" class="close">&times;</span>
-            <h2 id="modalTitle">Add Task</h2>
+            <h2 id="modalTitle">Adicionar atividade</h2>
             <form id="taskForm">
                 <select id="modalTaskTipo">
                     <option value="tarefa">Tarefa</option>
@@ -32,14 +32,15 @@
                     <option value="relatorio">Relatório</option>
                 </select><br>
                 <input type="text" id="modalTaskTitle" placeholder="Título" required><br>
+                <div id="modalTaskImportantDiv">
+                    <input type="checkbox" id="modalTaskImportant"><span for="modalTaskImportant">Importante</span><br>
+                </div>
+                <div id="modalTaskUrgentDiv">
+                    <input type="checkbox" id="modalTaskUrgent"><span for="modalTaskUrgent">Urgente</span> 
+                </div>    
                 <div id="tarefaFields">
                     <textarea id="modalTaskDesc" placeholder="Descrição"></textarea><br>
                     <input type="date" id="modalTaskDeadline"><br>
-                    <select id="modalTaskUrgency">
-                        <option value="low">Baixa urgência</option>
-                        <option value="medium">Média urgência</option>
-                        <option value="high">Alta urgência</option>
-                    </select><br>
                 </div>
                 <div id="provaFields" style="display:none;">
                     <input type="date" id="modalProvaDate" placeholder="Data"><br>

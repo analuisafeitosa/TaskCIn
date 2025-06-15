@@ -30,7 +30,6 @@ std::vector<std::shared_ptr<TodoItem>> loadTodos() {
                     t->setTask(j.value("task", ""));
                     t->setDescription(j.value("description", ""));
                     t->setDeadline(j.value("deadline", ""));
-                    t->setUrgency(j.value("urgency", ""));
                     t->setCompleted(j.value("completed", false));
                     todos.push_back(t);
                 } else if (tipo == "prova") {
@@ -101,7 +100,6 @@ int main(int argc, char* argv[]) {
             t->setTask(argv[3]);
             t->setDescription(argv[4]);
             t->setDeadline(argv[5]);
-            t->setUrgency(argv[6]);
             t->setCompleted(false);
             item = t;
         } else if (tipo == "prova" && argc >= 6) {
@@ -144,7 +142,6 @@ int main(int argc, char* argv[]) {
             t->setTask(argv[4]);
             t->setDescription(argv[5]);
             t->setDeadline(argv[6]);
-            t->setUrgency(argv[7]);
             t->setCompleted(false);
             todos[idx] = t;
         } else if (tipo == "prova" && argc >= 7) {

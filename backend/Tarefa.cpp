@@ -8,7 +8,8 @@ void Tarefa::to_json(nlohmann::json& j) const {
         {"task", getTask()},
         {"description", getDescription()},
         {"deadline", getDeadline()},
-        {"urgency", getUrgency()},
-        {"completed", isCompleted()}
+        {"completed", isCompleted()},
+        {"important", isImportant()},
+        {"urgent", isUrgent()}
     };
 }

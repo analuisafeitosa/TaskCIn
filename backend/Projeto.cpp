@@ -9,6 +9,8 @@ void Projeto::to_json(nlohmann::json& j) const {
         {"deadline", getDeadline()},
         {"materia", getMateria()},
         {"complexidade", getComplexidade()},
-        {"completed", isCompleted()}
+        {"completed", isCompleted()},
+        {"important", isImportant()},
+        {"urgent", isUrgent()}
     };
 }

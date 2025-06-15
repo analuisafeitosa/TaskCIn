@@ -10,6 +10,21 @@ h1 {
     color: #333;
 }
 
+span {
+    font-weight: 100;
+    font-size: small;
+}
+#modalTaskImportantDiv{
+    margin-bottom: 8px;
+}
+#modalTaskUrgentDiv{
+    margin-bottom: 8px;
+}
+
+.matrix-quadrant {
+    border: 1px solid black;
+}
+
 .container {
     max-width: 600px;
     margin: 0 auto;

@@ -9,6 +9,8 @@ void Relatorio::to_json(nlohmann::json& j) const {
         {"deadline", getDeadline()},
         {"materia", getMateria()},
         {"plataforma", getPlataforma()},
-        {"completed", isCompleted()}
+        {"completed", isCompleted()},
+        {"important", isImportant()},
+        {"urgent", isUrgent()}
     };
 }

@@ -6,5 +6,28 @@
         "materia": "edii",
         "task": "oiiiii",
         "tipo": "projeto"
+    },
+    {
+        "completed": false,
+        "complexidade": "l",
+        "deadline": "2025-06-10",
+        "materia": "k",
+        "task": "oiiiii",
+        "tipo": "projeto"
+    },
+    {
+        "completed": false,
+        "deadline": "",
+        "materia": "",
+        "task": "lllllllllll",
+        "tipo": "prova"
+    },
+    {
+        "completed": false,
+        "complexidade": "dificil",
+        "deadline": "2025-06-27",
+        "materia": "math",
+        "task": "teste",
+        "tipo": "projeto"
     }
 ]
