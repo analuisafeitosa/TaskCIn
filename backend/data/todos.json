@@ -1,85 +1,40 @@
 [
     {
         "completed": false,
-        "deadline": "2025-06-19",
-        "important": true,
-        "materia": "may",
-        "task": "teste",
-        "tipo": "prova",
-        "urgent": false
-    },
-    {
-        "completed": false,
-        "deadline": "",
-        "description": "",
-        "important": false,
-        "task": "?",
-        "tipo": "tarefa",
-        "urgent": true
-    },
-    {
-        "completed": false,
-        "deadline": "",
-        "description": "",
-        "important": false,
-        "task": "?????????????????",
-        "tipo": "tarefa",
-        "urgent": false
-    },
-    {
-        "completed": false,
-        "deadline": "2025-06-27",
-        "description": "What",
-        "important": false,
-        "task": "MUAHAHAHAHHAHAHAHAHAHAHA",
-        "tipo": "tarefa",
-        "urgent": false
-    },
-    {
-        "completed": false,
-        "deadline": "",
-        "description": "",
-        "important": false,
-        "task": "A",
-        "tipo": "tarefa",
-        "urgent": false
-    },
-    {
-        "completed": false,
-        "deadline": "",
-        "description": "",
-        "important": false,
-        "task": "B",
-        "tipo": "tarefa",
-        "urgent": false
-    },
-    {
-        "completed": false,
-        "deadline": "",
-        "description": "",
-        "important": false,
-        "task": "C",
-        "tipo": "tarefa",
-        "urgent": false
-    },
-    {
-        "completed": false,
         "deadline": "2025-06-17",
         "important": true,
-        "materia": "k",
-        "plataforma": "ll",
-        "task": "relatório",
+        "materia": "a",
+        "plataforma": "",
+        "task": "importante e urgente",
         "tipo": "relatorio",
         "urgent": true
     },
     {
         "completed": false,
-        "deadline": "",
+        "deadline": "2025-06-24",
+        "description": "",
         "important": true,
+        "task": "apenas importante",
+        "tipo": "tarefa",
+        "urgent": false
+    },
+    {
+        "completed": false,
+        "complexidade": "",
+        "deadline": "",
+        "important": false,
         "materia": "",
-        "plataforma": "",
-        "task": "relatorio 2",
-        "tipo": "relatorio",
+        "task": "apenas urgente",
+        "tipo": "projeto",
+        "urgent": true
+    },
+    {
+        "completed": false,
+        "deadline": "",
+        "description": "",
+        "important": false,
+        "task": "nada",
+        "tipo": "tarefa",
         "urgent": false
     }
 ]
