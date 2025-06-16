@@ -1,12 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     function fetchMatriz(){
-               fetch('/api/todos')
+        fetch('/api/todos')
             .then(res => res.json())
             .then(todos => {
                 const faca = document.getElementById('faca');
                 const delegue = document.getElementById('delegue');
                 const programe = document.getElementById('programe');
                 const exclua = document.getElementById('exclua');
+                
+                // Limpar os quadrantes antes de adicionar novas tarefas
+                faca.innerHTML = '<div class="quadrant-title"><p>FAÇA</p></div>';
+                delegue.innerHTML = '<div class="quadrant-title"><p>DELEGUE</p></div>';
+                programe.innerHTML = '<div class="quadrant-title"><p>PROGRAME</p></div>';
+                exclua.innerHTML = '<div class="quadrant-title"><p>EXCLUA</p></div>';
 
                 const tipoLabel = {
                     tarefa: "Tarefa",
@@ -16,44 +22,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
 
                 todos.forEach(todo => { 
-                    const li = document.createElement('div');
+                    const card = document.createElement('div');
+                    card.className = 'matrix-task-card';
 
                     let info = `<strong>${todo.task || '(Sem título)'}</strong>`;
-                    info += `<span style="font-weight:bold;color:#0275d8;">Categoria: ${tipoLabel[todo.tipo] || todo.tipo}</span>`;
-
+                    info += `<span class="tag">${tipoLabel[todo.tipo] || todo.tipo}</span>`;
+                    
                     if (todo.tipo === 'tarefa') {
-                        info += `<small><b>Descrição:</b> ${todo.description || '-'}</small>`;
-                        info += `<small><b>Prazo:</b> ${todo.deadline || '-'}</small>`;
+                        if (todo.description) info += `<p><small>${todo.description}</small></p>`;
+                        if (todo.deadline) info += `<p><small>Prazo: ${formatDate(todo.deadline)}</small></p>`;
                     } else if (todo.tipo === 'prova') {
-                        info += `<small><b>Data:</b> ${todo.deadline || '-'}</small>`;
-                        info += `<small><b>Matéria:</b> ${todo.materia || '-'}</small>`;
+                        if (todo.deadline) info += `<p><small>Data: ${formatDate(todo.deadline)}</small></p>`;
+                        if (todo.materia) info += `<p><small>Matéria: ${todo.materia}</small></p>`;
                     } else if (todo.tipo === 'projeto') {
-                        info += `<small><b>Data:</b> ${todo.deadline || '-'}</small>`;
-                        info += `<small><b>Matéria:</b> ${todo.materia || '-'}</small>`;
-                        info += `<small><b>Complexidade:</b> ${todo.complexidade || '-'}</small>`;
+                        if (todo.deadline) info += `<p><small>Data: ${formatDate(todo.deadline)}</small></p>`;
+                        if (todo.materia) info += `<p><small>Matéria: ${todo.materia}</small></p>`;
+                        if (todo.complexidade) info += `<p><small>Complexidade: ${todo.complexidade}</small></p>`;
                     } else if (todo.tipo === 'relatorio') {
-                        info += `<small><b>Data:</b> ${todo.deadline || '-'}</small>`;
-                        info += `<small><b>Matéria:</b> ${todo.materia || '-'}</small>`;
-                        info += `<small><b>Plataforma:</b> ${todo.plataforma || '-'}</small>`;
+                        if (todo.deadline) info += `<p><small>Data: ${formatDate(todo.deadline)}</small></p>`;
+                        if (todo.materia) info += `<p><small>Matéria: ${todo.materia}</small></p>`;
+                        if (todo.plataforma) info += `<p><small>Plataforma: ${todo.plataforma}</small></p>`;
                     }
 
-                    const infoDiv = document.createElement('div');
-                    infoDiv.style = 'display: flex; flex-direction: column; align-items: start; margin-left: 8px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #eee;';
-                    infoDiv.innerHTML = info;
+                    card.innerHTML = info;
 
-                    li.appendChild(infoDiv);
-
-                    if (todo.important == true && todo.urgent == true)
-                        faca.appendChild(li);
-                    else if (todo.important == true)
-                        programe.appendChild(li);
-                    else if (todo.urgent == true)
-                        delegue.appendChild(li);
+                    // Reorganizado de acordo com a nova disposição da matriz
+                    if (todo.important && todo.urgent)
+                        faca.appendChild(card);
+                    else if (todo.important && !todo.urgent)
+                        programe.appendChild(card);
+                    else if (!todo.important && todo.urgent)
+                        delegue.appendChild(card);
                     else
-                        exclua.appendChild(li);
-                })
+                        exclua.appendChild(card);
+                });
             })
+            .catch(error => {
+                console.error('Erro ao carregar tarefas:', error);
+            });
     }
+    
+    // Função para formatar datas
+    function formatDate(dateString) {
+        if (!dateString) return '-';
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    }
+    
     fetchMatriz();
     
 
@@ -81,10 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let editIndex = null;
 
     function showFields(tipo) {
-        document.getElementById('tarefaFields').style.display = tipo === 'tarefa' ? '' : 'none';
-        document.getElementById('provaFields').style.display = tipo === 'prova' ? '' : 'none';
-        document.getElementById('projetoFields').style.display = tipo === 'projeto' ? '' : 'none';
-        document.getElementById('relatorioFields').style.display = tipo === 'relatorio' ? '' : 'none';
+        document.getElementById('tarefaFields').style.display = tipo === 'tarefa' ? 'block' : 'none';
+        document.getElementById('provaFields').style.display = tipo === 'prova' ? 'block' : 'none';
+        document.getElementById('projetoFields').style.display = tipo === 'projeto' ? 'block' : 'none';
+        document.getElementById('relatorioFields').style.display = tipo === 'relatorio' ? 'block' : 'none';
     }
 
     modalTaskTipo.onchange = () => showFields(modalTaskTipo.value);
@@ -108,6 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
         modalRelatorioMateria.value = todo.materia || '';
         modalRelatorioPlataforma.value = todo.plataforma || '';
         editIndex = edit ? todo.idx : null;
+        
+        // Focar no primeiro campo após abrir o modal
+        setTimeout(() => modalTaskTitle.focus(), 100);
     }
 
     function closeModalFunc() {
@@ -134,53 +152,79 @@ document.addEventListener('DOMContentLoaded', () => {
                     const li = document.createElement('li');
                     li.className = 'todo-item';
 
-                    let info = `<strong>${todo.task || '(Sem título)'}</strong><br>`;
-                    info += `<span style="font-weight:bold;color:#0275d8;">Categoria: ${tipoLabel[todo.tipo] || todo.tipo}</span><br>`;
+                    let info = `<strong>${todo.task || '(Sem título)'}</strong>`;
+                    
+                    // Tags para tipo e status
+                    let tags = `<div>`;
+                    tags += `<span class="tag">${tipoLabel[todo.tipo] || todo.tipo}</span>`;
+                    
+                    if (todo.important) {
+                        tags += `<span class="tag tag-important">Importante</span>`;
+                    }
+                    
+                    if (todo.urgent) {
+                        tags += `<span class="tag tag-urgent">Urgente</span>`;
+                    }
+                    tags += `</div>`;
+                    
+                    info += tags;
 
                     if (todo.tipo === 'tarefa') {
-                        info += `<small><b>Descrição:</b> ${todo.description || '-'}</small><br>`;
-                        info += `<small><b>Prazo:</b> ${todo.deadline || '-'}</small>`;
+                        if (todo.description) info += `<p><small>${todo.description}</small></p>`;
+                        if (todo.deadline) info += `<p><small>Prazo: ${formatDate(todo.deadline)}</small></p>`;
                     } else if (todo.tipo === 'prova') {
-                        info += `<small><b>Data:</b> ${todo.deadline || '-'}</small><br>`;
-                        info += `<small><b>Matéria:</b> ${todo.materia || '-'}</small>`;
+                        if (todo.deadline) info += `<p><small>Data: ${formatDate(todo.deadline)}</small></p>`;
+                        if (todo.materia) info += `<p><small>Matéria: ${todo.materia}</small></p>`;
                     } else if (todo.tipo === 'projeto') {
-                        info += `<small><b>Data:</b> ${todo.deadline || '-'}</small><br>`;
-                        info += `<small><b>Matéria:</b> ${todo.materia || '-'}</small><br>`;
-                        info += `<small><b>Complexidade:</b> ${todo.complexidade || '-'}</small>`;
+                        if (todo.deadline) info += `<p><small>Data: ${formatDate(todo.deadline)}</small></p>`;
+                        if (todo.materia) info += `<p><small>Matéria: ${todo.materia}</small></p>`;
+                        if (todo.complexidade) info += `<p><small>Complexidade: ${todo.complexidade}</small></p>`;
                     } else if (todo.tipo === 'relatorio') {
-                        info += `<small><b>Data:</b> ${todo.deadline || '-'}</small><br>`;
-                        info += `<small><b>Matéria:</b> ${todo.materia || '-'}</small><br>`;
-                        info += `<small><b>Plataforma:</b> ${todo.plataforma || '-'}</small>`;
-                    }
-
-                    if (todo.important == true) {
-                        info += "<br><small><b>Importante</b></small>";
-                    }
-
-                    if (todo.urgent == true) {
-                        info += "<br><small><b>Urgente</b></small>";
+                        if (todo.deadline) info += `<p><small>Data: ${formatDate(todo.deadline)}</small></p>`;
+                        if (todo.materia) info += `<p><small>Matéria: ${todo.materia}</small></p>`;
+                        if (todo.plataforma) info += `<p><small>Plataforma: ${todo.plataforma}</small></p>`;
                     }
 
                     const infoDiv = document.createElement('div');
                     infoDiv.style.flex = '1';
                     infoDiv.innerHTML = info;
 
+                    const actionsDiv = document.createElement('div');
+                    actionsDiv.className = 'actions';
+
                     const editBtn = document.createElement('button');
                     editBtn.textContent = 'Editar';
+                    editBtn.className = 'edit-btn';
                     editBtn.onclick = () => openModal(true, { ...todo, idx });
 
                     const deleteBtn = document.createElement('button');
                     deleteBtn.textContent = 'Deletar';
+                    deleteBtn.className = 'delete-btn';
                     deleteBtn.onclick = () => {
-                        fetch(`/api/todos/${idx}`, { method: 'DELETE' })
-                            .then(fetchTodos);
+                        if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
+                            fetch(`/api/todos/${idx}`, { method: 'DELETE' })
+                                .then(response => {
+                                    if (response.ok) {
+                                        fetchTodos();
+                                        // Se estamos na página da matriz, atualize-a também
+                                        if (window.location.href.includes('matriz.html')) {
+                                            fetchMatriz();
+                                        }
+                                    }
+                                });
+                        }
                     };
 
+                    actionsDiv.appendChild(editBtn);
+                    actionsDiv.appendChild(deleteBtn);
+
                     li.appendChild(infoDiv);
-                    li.appendChild(editBtn);
-                    li.appendChild(deleteBtn);
+                    li.appendChild(actionsDiv);
                     taskList.appendChild(li);
                 });
+            })
+            .catch(error => {
+                console.error('Erro ao carregar tarefas:', error);
             });
     }
 
@@ -212,26 +256,35 @@ document.addEventListener('DOMContentLoaded', () => {
             todo.materia = modalRelatorioMateria.value;
             todo.plataforma = modalRelatorioPlataforma.value;
         }
-        if (editIndex !== null) {
-            fetch(`/api/todos/${editIndex}`, {
+        
+        const apiCall = editIndex !== null
+            ? fetch(`/api/todos/${editIndex}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(todo)
-            }).then(() => {
-                closeModalFunc();
-                fetchTodos();
-            });
-        } else {
-            fetch('/api/todos', {
+              })
+            : fetch('/api/todos', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(todo)
-            }).then(() => {
+              });
+        
+        apiCall.then(response => {
+            if (response.ok) {
                 closeModalFunc();
                 fetchTodos();
-            });
-        }
+                // Se estamos na página da matriz, atualize-a também
+                if (window.location.href.includes('matriz.html')) {
+                    fetchMatriz();
+                }
+            }
+        }).catch(error => {
+            console.error('Erro ao salvar tarefa:', error);
+        });
     };
 
-    fetchTodos();
+    // Inicializar a interface
+    if (window.location.href.includes('index.html')) {
+        fetchTodos();
+    }
 });
