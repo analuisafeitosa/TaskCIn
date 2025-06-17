@@ -9,10 +9,23 @@ const todoBin = path.join(__dirname, `todo_storage${process.platform === 'win32'
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
 app.use(bodyParser.json());
+app.use(cors());
+
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.get('/api/todos', (req, res) => {
+    exec(`"${todoBin}" get`, { cwd: __dirname }, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error executing C++ code: ${error}`);
+            return res.status(500).send('Internal Server Error');
+        }
+        res.json(JSON.parse(stdout));
+    });
+});
+
+app.get('/api/todos/pending', (req, res) => {
     exec(`"${todoBin}" get`, { cwd: __dirname }, (error, stdout, stderr) => {
         if (error) {
             console.error(`Error executing C++ code: ${error}`);

@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const delegue = document.getElementById('delegue');
                 const programe = document.getElementById('programe');
                 const exclua = document.getElementById('exclua');
+
                 
                 // Limpar os quadrantes antes de adicionar novas tarefas
                 faca.innerHTML = '<div class="quadrant-title"><p>FAÇA</p></div>';
@@ -92,6 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalRelatorioDate = document.getElementById('modalRelatorioDate');
     const modalRelatorioMateria = document.getElementById('modalRelatorioMateria');
     const modalRelatorioPlataforma = document.getElementById('modalRelatorioPlataforma');
+    const pendingTextElement = document.getElementById('contadorPendente');
+
 
     let editIndex = null;
 
@@ -142,6 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => res.json())
             .then(todos => {
                 taskList.innerHTML = '';
+                let pendingCount = 0;
+
+
                 const tipoLabel = {
                     tarefa: "Tarefa",
                     prova: "Prova",
@@ -149,6 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     relatorio: "Relatório"
                 };
                 todos.forEach((todo, idx) => {
+                    if (todo.completed == false) {
+                        pendingCount += 1
+                    }
+
                     const li = document.createElement('li');
                     li.className = 'todo-item';
 
@@ -222,6 +232,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     li.appendChild(actionsDiv);
                     taskList.appendChild(li);
                 });
+
+                pendingTextElement.textContent = pendingCount;
             })
             .catch(error => {
                 console.error('Erro ao carregar tarefas:', error);
