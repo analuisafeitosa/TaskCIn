@@ -35,8 +35,8 @@ Verifique se você tem os seguintes itens instalados:
 1. Clone o repositório
    
 2. Compile o código C++:
-cd backend
-g++ todo_storage.cpp Tarefa.cpp Prova.cpp Projeto.cpp Relatorio.cpp TodoItem.cpp -o todo_storage -I.
+- **cd backend**
+- **g++ todo_storage.cpp Tarefa.cpp Prova.cpp Projeto.cpp Relatorio.cpp TodoItem.cpp -o todo_storage -I.**
 
 ### Executando o Projeto
 
@@ -103,8 +103,8 @@ All activities are automatically classified in the Eisenhower matrix according t
 1. Clone the repository
    
 2. Compile the C++ code:
-cd backend
-g++ todo_storage.cpp Tarefa.cpp Prova.cpp Projeto.cpp Relatorio.cpp TodoItem.cpp -o todo_storage -I.
+- **cd backend**
+- **g++ todo_storage.cpp Tarefa.cpp Prova.cpp Projeto.cpp Relatorio.cpp TodoItem.cpp -o todo_storage -I.**
 
 ### Running the Project
 
