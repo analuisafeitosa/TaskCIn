@@ -25,5 +25,14 @@
         "task": "prova 1 de fisica",
         "tipo": "prova",
         "urgent": true
+    },
+    {
+        "completed": true,
+        "deadline": "2025-06-19",
+        "important": true,
+        "materia": "física",
+        "task": "primeira prova de física",
+        "tipo": "prova",
+        "urgent": false
     }
 ]

@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 programe.innerHTML = '<div class="quadrant-title"><p>PROGRAME</p></div>';
                 exclua.innerHTML = '<div class="quadrant-title"><p>EXCLUA</p></div>';
 
+                // Filtra a lista, mantendo apenas as tarefas onde 'completed' é false.
+                const tarefasPendentes = todos.filter(todo => !todo.completed);
+
                 const tipoLabel = {
                     tarefa: "Tarefa",
                     prova: "Prova",
@@ -21,9 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     relatorio: "Relatório"
                 };
 
-                todos.forEach(todo => { 
-                    const card = document.createElement('div');
-                    card.className = 'matrix-task-card';
+                // AGORA, O LOOP USA A NOVA LISTA FILTRADA 'tarefasPendentes'
+                tarefasPendentes.forEach(todo => { 
+                const card = document.createElement('div');
+                card.className = 'matrix-task-card';
 
                     let info = `<strong>${todo.task || '(Sem título)'}</strong>`;
                     info += `<span class="tag">${tipoLabel[todo.tipo] || todo.tipo}</span>`;
