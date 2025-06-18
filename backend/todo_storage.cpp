@@ -151,50 +151,58 @@ int main(int argc, char* argv[]) {
         saveTodos(todos);
         std::cout << "Added\n";
     } 
-    else if (command == "edit" && argc >= 5) {
+    // SUBSTITUA O SEU BLOCO "edit" INTEIRO POR ESTE:
+else if (command == "edit" && argc >= 5) {
     int idx = std::stoi(argv[2]);
     std::string tipo = argv[3];
     if (idx >= 0 && idx < todos.size()) {
-        if (tipo == "tarefa" && argc >= 8) {
+        // 1. Salva o status de conclusão atual em UMA variável com nome claro.
+        bool status_concluido_salvo = todos[idx]->isCompleted();
+
+        if (tipo == "tarefa" && argc >= 9) { // Argc corrigido
             auto t = std::make_shared<Tarefa>();
-            t->setImportant(std::string(argv[4]) == std::string("true"));
-            t->setUrgent(std::string(argv[5]) == std::string("true"));
-            t->setTask(argv[4+2]);
-            t->setDescription(argv[5+2]);
-            t->setDeadline(argv[6+2]);
-            t->setCompleted(false);
+            t->setImportant(std::string(argv[4]) == "true");
+            t->setUrgent(std::string(argv[5]) == "true");
+            t->setTask(argv[6]);
+            t->setDescription(argv[7]);
+            t->setDeadline(argv[8]);
+            // 2. Restaura o status de conclusão usando a variável que criamos.
+            t->setCompleted(status_concluido_salvo);
             todos[idx] = t;
-        } else if (tipo == "prova" && argc >= 7) {
+        } else if (tipo == "prova" && argc >= 9) { // Argc corrigido
             auto t = std::make_shared<Prova>();
-            t->setImportant(std::string(argv[4]) == std::string("true"));
-            t->setUrgent(std::string(argv[5]) == std::string("true"));
-            t->setTask(argv[4+2]);
-            t->setDeadline(argv[5+2]);
-            t->setMateria(argv[6+2]);
-            t->setCompleted(false);
+            t->setImportant(std::string(argv[4]) == "true");
+            t->setUrgent(std::string(argv[5]) == "true");
+            t->setTask(argv[6]);
+            t->setDeadline(argv[7]);
+            t->setMateria(argv[8]);
+            // Restaura o status
+            t->setCompleted(status_concluido_salvo);
             todos[idx] = t;
-        } else if (tipo == "projeto" && argc >= 8) {
+        } else if (tipo == "projeto" && argc >= 10) { // Argc corrigido
             auto t = std::make_shared<Projeto>();
-            t->setImportant(std::string(argv[4]) == std::string("true"));
-            t->setUrgent(std::string(argv[5]) == std::string("true"));            
-            t->setTask(argv[4+2]);
-            t->setDeadline(argv[5+2]);
-            t->setMateria(argv[6+2]);
-            t->setComplexidade(argv[7+2]);
-            t->setCompleted(false);
+            t->setImportant(std::string(argv[4]) == "true");
+            t->setUrgent(std::string(argv[5]) == "true");
+            t->setTask(argv[6]);
+            t->setDeadline(argv[7]);
+            t->setMateria(argv[8]);
+            t->setComplexidade(argv[9]);
+            // Restaura o status
+            t->setCompleted(status_concluido_salvo);
             todos[idx] = t;
-        } else if (tipo == "relatorio" && argc >= 8) {
+        } else if (tipo == "relatorio" && argc >= 10) { // Argc corrigido
             auto t = std::make_shared<Relatorio>();
-            t->setImportant(std::string(argv[4]) == std::string("true"));
-            t->setUrgent(std::string(argv[5]) == std::string("true"));            
-            t->setTask(argv[4+2]);
-            t->setDeadline(argv[5+2]);
-            t->setMateria(argv[6+2]);
-            t->setPlataforma(argv[7+2]);
-            t->setCompleted(false);
+            t->setImportant(std::string(argv[4]) == "true");
+            t->setUrgent(std::string(argv[5]) == "true");
+            t->setTask(argv[6]);
+            t->setDeadline(argv[7]);
+            t->setMateria(argv[8]);
+            t->setPlataforma(argv[9]);
+            // Restaura o status
+            t->setCompleted(status_concluido_salvo);
             todos[idx] = t;
         } else {
-            std::cerr << "Invalid arguments for type.\n";
+            std::cerr << "Argumentos invalidos para o tipo ou comando.\n";
             return 1;
         }
         saveTodos(todos);
@@ -210,6 +218,18 @@ else if (command == "delete" && argc >= 3) {
         todos.erase(todos.begin() + idx);
         saveTodos(todos);
         std::cout << "Deleted\n";
+    } else {
+        std::cerr << "Invalid index\n";
+        return 1;
+    }
+}
+
+else if (command == "complete" && argc >= 3) {
+    int idx = std::stoi(argv[2]);
+    if (idx >= 0 && idx < todos.size()) {
+        todos[idx]->setCompleted(true);
+        saveTodos(todos);
+        std::cout << "Completed\n";
     } else {
         std::cerr << "Invalid index\n";
         return 1;
