@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 programe.innerHTML = '<div class="quadrant-title"><p>PROGRAME</p></div>';
                 exclua.innerHTML = '<div class="quadrant-title"><p>EXCLUA</p></div>';
 
+                // Filtra a lista, mantendo apenas as tarefas onde 'completed' é false.
+                const tarefasPendentes = todos.filter(todo => !todo.completed);
+
                 const tipoLabel = {
                     tarefa: "Tarefa",
                     prova: "Prova",
@@ -21,9 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     relatorio: "Relatório"
                 };
 
-                todos.forEach(todo => { 
-                    const card = document.createElement('div');
-                    card.className = 'matrix-task-card';
+                // AGORA, O LOOP USA A NOVA LISTA FILTRADA 'tarefasPendentes'
+                tarefasPendentes.forEach(todo => { 
+                const card = document.createElement('div');
+                card.className = 'matrix-task-card';
 
                     let info = `<strong>${todo.task || '(Sem título)'}</strong>`;
                     info += `<span class="tag">${tipoLabel[todo.tipo] || todo.tipo}</span>`;
@@ -141,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('/api/todos')
             .then(res => res.json())
             .then(todos => {
+                console.log("Tarefas carregadas:", todos); // Debug
                 taskList.innerHTML = '';
                 const tipoLabel = {
                     tarefa: "Tarefa",
@@ -150,12 +155,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
                 todos.forEach((todo, idx) => {
                     const li = document.createElement('li');
-                    li.className = 'todo-item';
-
-                    let info = `<strong>${todo.task || '(Sem título)'}</strong>`;
+                    li.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+    
+                    let info = `<div class="task-info">`;
+                    info += `<strong>${todo.task || '(Sem título)'}</strong>`;
                     
                     // Tags para tipo e status
-                    let tags = `<div>`;
+                    let tags = `<div class="tags">`;
                     tags += `<span class="tag">${tipoLabel[todo.tipo] || todo.tipo}</span>`;
                     
                     if (todo.important) {
@@ -168,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     tags += `</div>`;
                     
                     info += tags;
-
+    
                     if (todo.tipo === 'tarefa') {
                         if (todo.description) info += `<p><small>${todo.description}</small></p>`;
                         if (todo.deadline) info += `<p><small>Prazo: ${formatDate(todo.deadline)}</small></p>`;
@@ -184,19 +190,45 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (todo.materia) info += `<p><small>Matéria: ${todo.materia}</small></p>`;
                         if (todo.plataforma) info += `<p><small>Plataforma: ${todo.plataforma}</small></p>`;
                     }
-
+    
+                    info += `</div>`;
+    
                     const infoDiv = document.createElement('div');
-                    infoDiv.style.flex = '1';
+                    infoDiv.className = 'task-content';
                     infoDiv.innerHTML = info;
-
+    
                     const actionsDiv = document.createElement('div');
                     actionsDiv.className = 'actions';
-
-                    const editBtn = document.createElement('button');
-                    editBtn.textContent = 'Editar';
-                    editBtn.className = 'edit-btn';
-                    editBtn.onclick = () => openModal(true, { ...todo, idx });
-
+    
+                    // Botão de concluir (só aparece se não estiver concluído)
+                    if (!todo.completed) {
+                        const completeBtn = document.createElement('button');
+                        completeBtn.textContent = 'Concluir';
+                        completeBtn.className = 'complete-btn';
+                        completeBtn.onclick = () => {
+                            fetch(`/api/todos/${idx}/complete`, { method: 'PUT' })
+                                .then(response => {
+                                    if (response.ok) {
+                                        fetchTodos();
+                                        if (window.location.href.includes('matriz.html')) {
+                                            fetchMatriz();
+                                        }
+                                    }
+                                });
+                        };
+                        actionsDiv.appendChild(completeBtn);
+                    }
+    
+                    // Botão de editar (só aparece se não estiver concluído)
+                    if (!todo.completed) {
+                        const editBtn = document.createElement('button');
+                        editBtn.textContent = 'Editar';
+                        editBtn.className = 'edit-btn';
+                        editBtn.onclick = () => openModal(true, { ...todo, idx });
+                        actionsDiv.appendChild(editBtn);
+                    }
+    
+                    // Botão de deletar (sempre aparece)
                     const deleteBtn = document.createElement('button');
                     deleteBtn.textContent = 'Deletar';
                     deleteBtn.className = 'delete-btn';
@@ -206,7 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 .then(response => {
                                     if (response.ok) {
                                         fetchTodos();
-                                        // Se estamos na página da matriz, atualize-a também
                                         if (window.location.href.includes('matriz.html')) {
                                             fetchMatriz();
                                         }
@@ -214,10 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 });
                         }
                     };
-
-                    actionsDiv.appendChild(editBtn);
                     actionsDiv.appendChild(deleteBtn);
-
+    
                     li.appendChild(infoDiv);
                     li.appendChild(actionsDiv);
                     taskList.appendChild(li);

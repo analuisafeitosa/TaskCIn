@@ -1,40 +1,38 @@
 [
     {
-        "completed": false,
-        "deadline": "2025-06-17",
-        "important": true,
-        "materia": "a",
-        "plataforma": "",
-        "task": "importante e urgente",
-        "tipo": "relatorio",
-        "urgent": true
-    },
-    {
-        "completed": false,
-        "deadline": "2025-06-24",
-        "description": "",
-        "important": true,
-        "task": "apenas importante",
-        "tipo": "tarefa",
-        "urgent": false
-    },
-    {
-        "completed": false,
-        "complexidade": "",
-        "deadline": "",
-        "important": false,
-        "materia": "",
-        "task": "apenas urgente",
-        "tipo": "projeto",
-        "urgent": true
-    },
-    {
-        "completed": false,
+        "completed": true,
         "deadline": "",
         "description": "",
         "important": false,
         "task": "nada",
         "tipo": "tarefa",
+        "urgent": false
+    },
+    {
+        "completed": true,
+        "deadline": "2025-06-18",
+        "important": true,
+        "materia": "física",
+        "task": "primeira prova de física",
+        "tipo": "prova",
+        "urgent": true
+    },
+    {
+        "completed": true,
+        "deadline": "2025-06-18",
+        "important": true,
+        "materia": "fisica",
+        "task": "prova 1 de fisica",
+        "tipo": "prova",
+        "urgent": true
+    },
+    {
+        "completed": true,
+        "deadline": "2025-06-19",
+        "important": true,
+        "materia": "física",
+        "task": "primeira prova de física",
+        "tipo": "prova",
         "urgent": false
     }
 ]

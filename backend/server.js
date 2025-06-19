@@ -78,6 +78,19 @@ app.delete('/api/todos/:id', (req, res) => {
     });
 });
 
+app.put('/api/todos/:id/complete', (req, res) => {
+    const todoId = req.params.id;
+    console.log(`Marcando tarefa ${todoId} como concluída`); // Adicione este log
+    exec(`"${todoBin}" complete ${todoId}`, { cwd: __dirname }, (error, stdout, stderr) => {
+        if (error) {
+            console.error('Erro no executável:', stderr);
+            return res.status(500).send('Internal Server Error');
+        }
+        console.log('Saída do executável:', stdout);
+        res.status(200).send('Todo completed');
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
