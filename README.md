@@ -36,7 +36,7 @@ Verifique se você tem os seguintes itens instalados:
    
 2. Compile o código C++:
 - **cd backend**
-- **g++ todo_storage.cpp Tarefa.cpp Prova.cpp Projeto.cpp Relatorio.cpp TodoItem.cpp -o todo_storage -I.**
+- **g++ todo_storage.cpp Tarefa.cpp Prova.cpp Projeto.cpp Relatorio.cpp -o todo_storage -I.**
 
 ### Executando o Projeto
 
@@ -56,7 +56,7 @@ npm start
 - **backend/**: Servidor e lógica de negócios
 - `server.js`: API REST
 - **Classes C++**:
- - `TodoItem.h/cpp`: Classe base para todos os tipos de tarefas
+ - `TodoItem.h`: Classe base para todos os tipos de tarefas
  - `Tarefa.h/cpp`: Implementação de tarefas
  - `Prova.h/cpp`: Implementação de provas
  - `Projeto.h/cpp`: Implementação de projetos
@@ -104,7 +104,7 @@ All activities are automatically classified in the Eisenhower matrix according t
    
 2. Compile the C++ code:
 - **cd backend**
-- **g++ todo_storage.cpp Tarefa.cpp Prova.cpp Projeto.cpp Relatorio.cpp TodoItem.cpp -o todo_storage -I.**
+- **g++ todo_storage.cpp Tarefa.cpp Prova.cpp Projeto.cpp Relatorio.cpp -o todo_storage -I.**
 
 ### Running the Project
 
@@ -125,7 +125,7 @@ npm start
 - **backend/**: Server and business logic
 - `server.js`: REST API
 - **C++ Classes**:
- - `TodoItem.h/cpp`: Base class for all task types
+ - `TodoItem.h`: Base class for all task types
  - `Tarefa.h/cpp`: Task implementation
  - `Prova.h/cpp`: Exam implementation
  - `Projeto.h/cpp`: Project implementation
