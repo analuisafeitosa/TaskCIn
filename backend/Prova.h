@@ -5,15 +5,10 @@
 
 // Classe específica para provas, inclui a matéria associada
 class Prova : public TodoItem {
-public:
-    // Construtor padrão: cria uma prova vazia
-    Prova() : TodoItem(), materia("") {
-        setTipo("prova");
-    }
-    
-    // Construtor com parâmetros: inicializa prova com título, data e matéria
-    Prova(const std::string& task, const std::string& deadline,
-          const std::string& materia)
+public:    
+    // Construtor unificado com padrão e com parâmetros: inicializa prova com título, data e matéria
+    Prova(const std::string& task = "", const std::string& deadline = "",
+          const std::string& materia = "")
         : TodoItem(task, deadline, "prova"), 
           materia(materia) {}
     

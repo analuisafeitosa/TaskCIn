@@ -43,5 +43,23 @@
         "task": "teste",
         "tipo": "tarefa",
         "urgent": true
+    },
+    {
+        "completed": false,
+        "deadline": "2025-07-01",
+        "description": "",
+        "important": true,
+        "task": "tarefa 1",
+        "tipo": "tarefa",
+        "urgent": false
+    },
+    {
+        "completed": false,
+        "deadline": "2025-07-17",
+        "important": false,
+        "materia": "Matemática",
+        "task": "Prova",
+        "tipo": "prova",
+        "urgent": true
     }
 ]
