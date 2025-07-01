@@ -1,13 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Função para atualizar contador da home
+    function updateHomeCounter() {
+        const counterElement = document.getElementById('contadorPendente');
+        if (counterElement) {
+            fetch('/api/todos')
+                .then(res => res.json())
+                .then(todos => {
+                    const pendingCount = todos.filter(todo => !todo.completed).length;
+                    counterElement.textContent = pendingCount;
+                })
+                .catch(err => console.error('Erro ao atualizar contador:', err));
+        }
+    }
+
+    // Função para formatar datas
+    function formatDate(dateString) {
+        if (!dateString) return '-';
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    }
+
     function fetchMatriz(){
+        const faca = document.getElementById('faca');
+        const delegue = document.getElementById('delegue');
+        const programe = document.getElementById('programe');
+        const exclua = document.getElementById('exclua');
+        
+        if (!faca) return; // Se não estamos na página da matriz, não fazer nada
+        
         fetch('/api/todos')
             .then(res => res.json())
             .then(todos => {
-                const faca = document.getElementById('faca');
-                const delegue = document.getElementById('delegue');
-                const programe = document.getElementById('programe');
-                const exclua = document.getElementById('exclua');
-                
                 // Limpar os quadrantes antes de adicionar novas tarefas
                 faca.innerHTML = '<div class="quadrant-title"><p>FAÇA</p></div>';
                 delegue.innerHTML = '<div class="quadrant-title"><p>DELEGUE</p></div>';
@@ -26,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // AGORA, O LOOP USA A NOVA LISTA FILTRADA 'tarefasPendentes'
                 tarefasPendentes.forEach(todo => { 
-                const card = document.createElement('div');
-                card.className = 'matrix-task-card';
+                    const card = document.createElement('div');
+                    card.className = 'matrix-task-card';
 
                     let info = `<strong>${todo.task || '(Sem título)'}</strong>`;
                     info += `<span class="tag">${tipoLabel[todo.tipo] || todo.tipo}</span>`;
@@ -66,16 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
     
-    // Função para formatar datas
-    function formatDate(dateString) {
-        if (!dateString) return '-';
-        const date = new Date(dateString);
-        return date.toLocaleDateString();
-    }
-    
-    fetchMatriz();
-    
-
+    // Elementos da interface
     const addTaskButton = document.getElementById('addTaskButton');
     const taskList = document.getElementById('taskList');
     const taskModal = document.getElementById('taskModal');
@@ -100,48 +114,68 @@ document.addEventListener('DOMContentLoaded', () => {
     let editIndex = null;
 
     function showFields(tipo) {
-        document.getElementById('tarefaFields').style.display = tipo === 'tarefa' ? 'block' : 'none';
-        document.getElementById('provaFields').style.display = tipo === 'prova' ? 'block' : 'none';
-        document.getElementById('projetoFields').style.display = tipo === 'projeto' ? 'block' : 'none';
-        document.getElementById('relatorioFields').style.display = tipo === 'relatorio' ? 'block' : 'none';
+        const tarefaFields = document.getElementById('tarefaFields');
+        const provaFields = document.getElementById('provaFields');
+        const projetoFields = document.getElementById('projetoFields');
+        const relatorioFields = document.getElementById('relatorioFields');
+        
+        if (tarefaFields) tarefaFields.style.display = tipo === 'tarefa' ? 'block' : 'none';
+        if (provaFields) provaFields.style.display = tipo === 'prova' ? 'block' : 'none';
+        if (projetoFields) projetoFields.style.display = tipo === 'projeto' ? 'block' : 'none';
+        if (relatorioFields) relatorioFields.style.display = tipo === 'relatorio' ? 'block' : 'none';
     }
 
-    modalTaskTipo.onchange = () => showFields(modalTaskTipo.value);
+    if (modalTaskTipo) {
+        modalTaskTipo.onchange = () => showFields(modalTaskTipo.value);
+    }
 
     function openModal(edit = false, todo = {}) {
+        if (!taskModal) return;
+        
         taskModal.style.display = 'block';
-        modalTitle.textContent = edit ? 'Editar atividade' : 'Adicionar atividade';
-        modalTaskImportant.checked = todo.important;
-        modalTaskUrgent.checked = todo.urgent;
-        modalTaskTipo.value = todo.tipo || 'tarefa';
-        showFields(modalTaskTipo.value);
-        modalTaskTitle.value = todo.task || '';
-        modalTaskDesc.value = todo.description || '';
-        modalTaskDeadline.value = todo.deadline || '';
-        modalProvaDate.value = todo.deadline || '';
-        modalProvaMateria.value = todo.materia || '';
-        modalProjetoDate.value = todo.deadline || '';
-        modalProjetoMateria.value = todo.materia || '';
-        modalProjetoComplexidade.value = todo.complexidade || '';
-        modalRelatorioDate.value = todo.deadline || '';
-        modalRelatorioMateria.value = todo.materia || '';
-        modalRelatorioPlataforma.value = todo.plataforma || '';
+        if (modalTitle) modalTitle.textContent = edit ? 'Editar atividade' : 'Adicionar atividade';
+        if (modalTaskImportant) modalTaskImportant.checked = todo.important || false;
+        if (modalTaskUrgent) modalTaskUrgent.checked = todo.urgent || false;
+        if (modalTaskTipo) modalTaskTipo.value = todo.tipo || 'tarefa';
+        showFields(modalTaskTipo ? modalTaskTipo.value : 'tarefa');
+        if (modalTaskTitle) modalTaskTitle.value = todo.task || '';
+        if (modalTaskDesc) modalTaskDesc.value = todo.description || '';
+        if (modalTaskDeadline) modalTaskDeadline.value = todo.deadline || '';
+        if (modalProvaDate) modalProvaDate.value = todo.deadline || '';
+        if (modalProvaMateria) modalProvaMateria.value = todo.materia || '';
+        if (modalProjetoDate) modalProjetoDate.value = todo.deadline || '';
+        if (modalProjetoMateria) modalProjetoMateria.value = todo.materia || '';
+        if (modalProjetoComplexidade) modalProjetoComplexidade.value = todo.complexidade || '';
+        if (modalRelatorioDate) modalRelatorioDate.value = todo.deadline || '';
+        if (modalRelatorioMateria) modalRelatorioMateria.value = todo.materia || '';
+        if (modalRelatorioPlataforma) modalRelatorioPlataforma.value = todo.plataforma || '';
         editIndex = edit ? todo.idx : null;
         
         // Focar no primeiro campo após abrir o modal
-        setTimeout(() => modalTaskTitle.focus(), 100);
+        if (modalTaskTitle) {
+            setTimeout(() => modalTaskTitle.focus(), 100);
+        }
     }
 
     function closeModalFunc() {
-        taskModal.style.display = 'none';
-        taskForm.reset();
+        if (taskModal) taskModal.style.display = 'none';
+        if (taskForm) taskForm.reset();
         editIndex = null;
     }
 
-    closeModal.onclick = closeModalFunc;
-    window.onclick = (e) => { if (e.target == taskModal) closeModalFunc(); };
+    if (closeModal) {
+        closeModal.onclick = closeModalFunc;
+    }
+    
+    if (typeof window !== 'undefined') {
+        window.onclick = (e) => { 
+            if (e.target == taskModal) closeModalFunc(); 
+        };
+    }
 
     function fetchTodos() {
+        if (!taskList) return; // Se não estamos na página de tarefas, não fazer nada
+        
         fetch('/api/todos')
             .then(res => res.json())
             .then(todos => {
@@ -210,9 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 .then(response => {
                                     if (response.ok) {
                                         fetchTodos();
-                                        if (window.location.href.includes('matriz.html')) {
-                                            fetchMatriz();
-                                        }
+                                        fetchMatriz();
+                                        updateHomeCounter();
                                     }
                                 });
                         };
@@ -238,9 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 .then(response => {
                                     if (response.ok) {
                                         fetchTodos();
-                                        if (window.location.href.includes('matriz.html')) {
-                                            fetchMatriz();
-                                        }
+                                        fetchMatriz();
+                                        updateHomeCounter();
                                     }
                                 });
                         }
@@ -257,63 +289,79 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    addTaskButton.onclick = () => openModal(false);
+    if (addTaskButton) {
+        addTaskButton.onclick = () => openModal(false);
+    }
 
-    taskForm.onsubmit = (e) => {
-        e.preventDefault();
-        const tipo = modalTaskTipo.value;
-        const important = modalTaskImportant.checked;
-        const urgent = modalTaskUrgent.checked;
-        let todo = { tipo, important, urgent };
+    if (taskForm) {
+        taskForm.onsubmit = (e) => {
+            e.preventDefault();
+            
+            if (!modalTaskTipo) return;
+            
+            const tipo = modalTaskTipo.value;
+            const important = modalTaskImportant ? modalTaskImportant.checked : false;
+            const urgent = modalTaskUrgent ? modalTaskUrgent.checked : false;
+            let todo = { tipo, important, urgent };
 
-        if (tipo === 'tarefa') {
-            todo.task = modalTaskTitle.value;
-            todo.description = modalTaskDesc.value;
-            todo.deadline = modalTaskDeadline.value;
-        } else if (tipo === 'prova') {
-            todo.task = modalTaskTitle.value;
-            todo.deadline = modalProvaDate.value;
-            todo.materia = modalProvaMateria.value;
-        } else if (tipo === 'projeto') {
-            todo.task = modalTaskTitle.value;
-            todo.deadline = modalProjetoDate.value;
-            todo.materia = modalProjetoMateria.value;
-            todo.complexidade = modalProjetoComplexidade.value;
-        } else if (tipo === 'relatorio') {
-            todo.task = modalTaskTitle.value;
-            todo.deadline = modalRelatorioDate.value;
-            todo.materia = modalRelatorioMateria.value;
-            todo.plataforma = modalRelatorioPlataforma.value;
-        }
-        
-        const apiCall = editIndex !== null
-            ? fetch(`/api/todos/${editIndex}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(todo)
-              })
-            : fetch('/api/todos', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(todo)
-              });
-        
-        apiCall.then(response => {
-            if (response.ok) {
-                closeModalFunc();
-                fetchTodos();
-                // Se estamos na página da matriz, atualize-a também
-                if (window.location.href.includes('matriz.html')) {
-                    fetchMatriz();
-                }
+            if (tipo === 'tarefa') {
+                todo.task = modalTaskTitle ? modalTaskTitle.value : '';
+                todo.description = modalTaskDesc ? modalTaskDesc.value : '';
+                todo.deadline = modalTaskDeadline ? modalTaskDeadline.value : '';
+            } else if (tipo === 'prova') {
+                todo.task = modalTaskTitle ? modalTaskTitle.value : '';
+                todo.deadline = modalProvaDate ? modalProvaDate.value : '';
+                todo.materia = modalProvaMateria ? modalProvaMateria.value : '';
+            } else if (tipo === 'projeto') {
+                todo.task = modalTaskTitle ? modalTaskTitle.value : '';
+                todo.deadline = modalProjetoDate ? modalProjetoDate.value : '';
+                todo.materia = modalProjetoMateria ? modalProjetoMateria.value : '';
+                todo.complexidade = modalProjetoComplexidade ? modalProjetoComplexidade.value : '';
+            } else if (tipo === 'relatorio') {
+                todo.task = modalTaskTitle ? modalTaskTitle.value : '';
+                todo.deadline = modalRelatorioDate ? modalRelatorioDate.value : '';
+                todo.materia = modalRelatorioMateria ? modalRelatorioMateria.value : '';
+                todo.plataforma = modalRelatorioPlataforma ? modalRelatorioPlataforma.value : '';
             }
-        }).catch(error => {
-            console.error('Erro ao salvar tarefa:', error);
-        });
-    };
+            
+            const apiCall = editIndex !== null
+                ? fetch(`/api/todos/${editIndex}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(todo)
+                  })
+                : fetch('/api/todos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(todo)
+                  });
+            
+            apiCall.then(response => {
+                if (response.ok) {
+                    closeModalFunc();
+                    fetchTodos();
+                    fetchMatriz();
+                    updateHomeCounter();
+                }
+            }).catch(error => {
+                console.error('Erro ao salvar tarefa:', error);
+            });
+        };
+    }
 
-    // Inicializar a interface
-    if (window.location.href.includes('index.html')) {
+    // Inicializar as funcionalidades baseado na página atual
+    if (document.getElementById('taskList')) {
+        // Estamos na página de tarefas
         fetchTodos();
+    }
+    
+    if (document.getElementById('faca')) {
+        // Estamos na página da matriz
+        fetchMatriz();
+    }
+    
+    if (document.getElementById('contadorPendente')) {
+        // Estamos na página home
+        updateHomeCounter();
     }
 });

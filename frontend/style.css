@@ -500,6 +500,11 @@ textarea {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+
+    #contadorPendente {
+        font-weight: bold;
+        font-size: 48px;
+    }
 }
 
 .feature-card {
