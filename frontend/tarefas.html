@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas - TaskCIn</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar">
+        <h1 class="sidebar-title">TaskCIn</h1>
+        <div class="sidebar-links">
+            <a href="index.html">HOME</a>
+            <a href="tarefas.html" class="active">TAREFAS</a>
+            <a href="matriz.html">MATRIZ</a>
+        </div>
+    </div>
+    
+    <div class="content">
+        <h1>Gerenciador de Tarefas</h1>
+        <button id="addTaskButton">Adicionar Nova Tarefa</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <!-- Modal para adicionar/editar tarefa -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2 id="modalTitle">Adicionar atividade</h2>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="modalTaskTipo">Tipo de Atividade</label>
+                    <select id="modalTaskTipo">
+                        <option value="tarefa">Tarefa</option>
+                        <option value="prova">Prova</option>
+                        <option value="projeto">Projeto</option>
+                        <option value="relatorio">Relatório</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modalTaskTitle">Título</label>
+                    <input type="text" id="modalTaskTitle" placeholder="Digite o título" required>
+                </div>
+                
+                <div id="modalTaskImportantDiv" class="form-check">
+                    <input type="checkbox" id="modalTaskImportant">
+                    <label for="modalTaskImportant">Importante</label>
+                </div>
+                
+                <div id="modalTaskUrgentDiv" class="form-check">
+                    <input type="checkbox" id="modalTaskUrgent">
+                    <label for="modalTaskUrgent">Urgente</label>
+                </div>    
+                
+                <div id="tarefaFields" class="form-fields">
+                    <div class="form-group">
+                        <label for="modalTaskDesc">Descrição</label>
+                        <textarea id="modalTaskDesc" placeholder="Descreva a tarefa"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalTaskDeadline">Prazo</label>
+                        <input type="date" id="modalTaskDeadline">
+                    </div>
+                </div>
+                
+                <div id="provaFields" class="form-fields" style="display:none;">
+                    <div class="form-group">
+                        <label for="modalProvaDate">Data da Prova</label>
+                        <input type="date" id="modalProvaDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalProvaMateria">Matéria</label>
+                        <input type="text" id="modalProvaMateria" placeholder="Nome da matéria">
+                    </div>
+                </div>
+                
+                <div id="projetoFields" class="form-fields" style="display:none;">
+                    <div class="form-group">
+                        <label for="modalProjetoDate">Data de Entrega</label>
+                        <input type="date" id="modalProjetoDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalProjetoMateria">Matéria</label>
+                        <input type="text" id="modalProjetoMateria" placeholder="Nome da matéria">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalProjetoComplexidade">Complexidade</label>
+                        <input type="text" id="modalProjetoComplexidade" placeholder="Nível de complexidade">
+                    </div>
+                </div>
+                
+                <div id="relatorioFields" class="form-fields" style="display:none;">
+                    <div class="form-group">
+                        <label for="modalRelatorioDate">Data de Entrega</label>
+                        <input type="date" id="modalRelatorioDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalRelatorioMateria">Matéria</label>
+                        <input type="text" id="modalRelatorioMateria" placeholder="Nome da matéria">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalRelatorioPlataforma">Plataforma</label>
+                        <input type="text" id="modalRelatorioPlataforma" placeholder="Plataforma de entrega">
+                    </div>
+                </div>
+                
+                <button type="submit" id="saveTaskBtn">Salvar</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
