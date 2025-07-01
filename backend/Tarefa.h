@@ -6,14 +6,9 @@
 // Classe para tarefas gerais, com descrição e nível de urgência
 class Tarefa : public TodoItem {
 public:
-    // Construtor padrão: cria uma tarefa vazia com urgência baixa
-    Tarefa() : TodoItem(), description("") {
-        setTipo("tarefa");
-    }
-    
-    // Construtor com parâmetros: inicializa todos os campos da tarefa
-    Tarefa(const std::string& task, const std::string& description,
-           const std::string& deadline)
+    // Construtor unificado com padrão e com parâmetros: inicializa todos os campos da tarefa
+    Tarefa(const std::string& task = "", const std::string& description = "",
+           const std::string& deadline = "")
         : TodoItem(task, deadline, "tarefa"), 
           description(description) {}
     

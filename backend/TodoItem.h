@@ -8,12 +8,9 @@
 // Classe base para todos os tipos de atividades
 class TodoItem {
 public:
-    // Construtor padrão: inicializa uma atividade vazia
-    TodoItem() : task(""), deadline(""), tipo(""), completed(false) {}
-    
-    // Construtor com parâmetros: cria uma atividade com valores específicos
-    TodoItem(const std::string& task, const std::string& deadline, 
-             const std::string& tipo, bool completed = false)
+    // Construtor unificado com padrão e parâmetros: cria uma atividade com valores específicos
+    TodoItem(const std::string& task = "", const std::string& deadline = "", 
+             const std::string& tipo = "", bool completed = false)
         : task(task), deadline(deadline), tipo(tipo), completed(completed) {}
     
     // Copy constructor

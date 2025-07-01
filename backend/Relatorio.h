@@ -6,14 +6,9 @@
 // Classe para relatórios, contém matéria e plataforma de entrega
 class Relatorio : public TodoItem {
 public:
-    // Construtor padrão: cria um relatório vazio
-    Relatorio() : TodoItem(), materia(""), plataforma("") {
-        setTipo("relatorio");
-    }
-    
-    // Construtor com parâmetros: inicializa relatório com todos os dados
-    Relatorio(const std::string& task, const std::string& deadline,
-              const std::string& materia, const std::string& plataforma)
+    // Construtor unificado com padrão e com parâmetros: inicializa relatório com todos os dados
+    Relatorio(const std::string& task = "", const std::string& deadline = "",
+              const std::string& materia = "", const std::string& plataforma = "")
         : TodoItem(task, deadline, "relatorio"), 
           materia(materia), plataforma(plataforma) {}
     
