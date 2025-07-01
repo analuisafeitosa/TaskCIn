@@ -100,7 +100,7 @@ All activities are automatically classified in the Eisenhower matrix according t
 
 ### Installation
 
-1. Clone the repository
+1. Clone the repository.
    
 2. Compile the C++ code:
 - **cd backend**
