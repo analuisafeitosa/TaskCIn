@@ -38,7 +38,7 @@ public:
     void setImportant(bool i) { important = i; }
     void setUrgent(bool u) { urgent = u; }    
 
-protected:
+private:
     std::string task;
     std::string deadline;
     std::string tipo;
