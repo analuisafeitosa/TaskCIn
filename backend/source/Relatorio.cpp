@@ -1,4 +1,4 @@
-#include "Relatorio.h"
+#include "../include/Relatorio.h"
 
 // Converte os dados do relatório para o formato JSON
 void Relatorio::to_json(nlohmann::json& j) const {

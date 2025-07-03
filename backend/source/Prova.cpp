@@ -1,4 +1,4 @@
-#include "Prova.h"
+#include "../include/Prova.h"
 
 // Converte os dados da prova para o formato JSON
 void Prova::to_json(nlohmann::json& j) const {

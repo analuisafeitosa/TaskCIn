@@ -1,4 +1,4 @@
-#include "Tarefa.h"
+#include "../include/Tarefa.h"
 
 // Converte os dados da tarefa para o formato JSON
 void Tarefa::to_json(nlohmann::json& j) const {

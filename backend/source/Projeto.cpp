@@ -1,4 +1,4 @@
-#include "Projeto.h"
+#include "../include/Projeto.h"
 
 // Converte os dados do projeto para o formato JSON
 void Projeto::to_json(nlohmann::json& j) const {

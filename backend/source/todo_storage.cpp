@@ -4,13 +4,13 @@
 #include <string>
 
 #include <locale>
-#include "nlohmann/json.hpp"
+#include "../nlohmann/json.hpp"
 
-#include "TodoItem.h"
-#include "Tarefa.h"
-#include "Prova.h"
-#include "Projeto.h"
-#include "Relatorio.h"
+#include "../include/TodoItem.h"
+#include "../include/Tarefa.h"
+#include "../include/Prova.h"
+#include "../include/Projeto.h"
+#include "../include/Relatorio.h"
 
 using json = nlohmann::json;
 
