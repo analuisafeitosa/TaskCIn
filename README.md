@@ -45,25 +45,41 @@ Verifique se você tem os seguintes itens instalados:
 npm start
 2. Acesse o aplicativo: Abra seu navegador e acesse [http://localhost:3000](http://localhost:3000)
 
-### Estrutura do Projeto
+## Estrutura do Projeto
 
-- **frontend/**: Interface do usuário
-- `home.html`: Página inicial
-- `index.html`: Gerenciamento de tarefas
-- `matriz.html`: Visualização da matriz de Eisenhower
-- `script.js`: Lógica do frontend
-- `style.css`: Estilos
+### frontend/: Interface do usuário
+- **index.html**: Página principal do sistema  
+- **style.css**: Estilos da interface  
+- **script.js**: Lógica do frontend  
 
-- **backend/**: Servidor e lógica de negócios
-- `server.js`: API REST
-- **Classes C++**:
- - `TodoItem.h`: Classe base para todos os tipos de tarefas
- - `Tarefa.h/cpp`: Implementação de tarefas
- - `Prova.h/cpp`: Implementação de provas
- - `Projeto.h/cpp`: Implementação de projetos
- - `Relatorio.h/cpp`: Implementação de relatórios
- - `todo_storage.cpp`: Gerenciamento de dados e operações CRUD
- - `todos.json`: Armazenamento de dados
+### backend/: Servidor e lógica de negócios
+- **server.js**: API REST em Node.js  
+- **todo_storage.exe**: Executável compilado da lógica em C++  
+
+#### backend/include/: Headers das classes
+- **TodoItem.h**: Classe base abstrata para todos os tipos de tarefas  
+- **Tarefa.h**: Definição da classe Tarefa  
+- **Prova.h**: Definição da classe Prova  
+- **Projeto.h**: Definição da classe Projeto  
+- **Relatorio.h**: Definição da classe Relatório  
+
+#### backend/source/: Implementações das classes
+- **todo_storage.cpp**: Gerenciamento de dados e operações CRUD  
+- **Tarefa.cpp**: Implementação da classe Tarefa  
+- **Prova.cpp**: Implementação da classe Prova  
+- **Projeto.cpp**: Implementação da classe Projeto  
+- **Relatorio.cpp**: Implementação da classe Relatório  
+
+#### backend/nlohmann/: Biblioteca externa para manipulação de JSON
+- **json.hpp**: Biblioteca para serialização e desserialização JSON em C++  
+
+#### backend/data/: Armazenamento de dados
+- **todos.json**: Base de dados com as tarefas salvas  
+
+### Arquivos adicionais
+- **package.json**: Configuração do projeto Node.js  
+- **README.md**: Documentação do projeto   
+
 
 ### Uso
 
@@ -78,7 +94,7 @@ npm start
 - 📝 **Interface intuitiva** para adicionar, editar e excluir tarefas
 - 🔄 **Atualizações em tempo real** da interface
 
-  Desenvolvido como projeto acadêmico para demonstrar o uso de C++ com herança e polimorfismo, integrado a uma interface web moderna.
+Desenvolvido como projeto acadêmico para demonstrar o uso de C++ com herança e polimorfismo, integrado a uma interface web moderna.
 
 ---
 
@@ -124,25 +140,41 @@ npm start
 
 3. Access the application: Open your browser and navigate to [http://localhost:3000](http://localhost:3000)
 
-### Project Structure
+## Project Structure
 
-- **frontend/**: User interface
-- `home.html`: Home page
-- `index.html`: Task management
-- `matriz.html`: Eisenhower matrix visualization
-- `script.js`: Frontend logic
-- `style.css`: Styles
+### frontend/: User Interface
+- **index.html**: Main page of the system  
+- **style.css**: Interface styles  
+- **script.js**: Frontend logic  
 
-- **backend/**: Server and business logic
-- `server.js`: REST API
-- **C++ Classes**:
- - `TodoItem.h`: Base class for all task types
- - `Tarefa.h/cpp`: Task implementation
- - `Prova.h/cpp`: Exam implementation
- - `Projeto.h/cpp`: Project implementation
- - `Relatorio.h/cpp`: Report implementation
- - `todo_storage.cpp`: Data management and CRUD operations
- - `todos.json`: Data storage
+### backend/: Server and business logic
+- **server.js**: Node.js REST API  
+- **todo_storage.exe**: Compiled C++ executable  
+
+#### backend/include/: Class headers
+- **TodoItem.h**: Abstract base class for all task types  
+- **Tarefa.h**: Definition of the Task class  
+- **Prova.h**: Definition of the Exam class  
+- **Projeto.h**: Definition of the Project class  
+- **Relatorio.h**: Definition of the Report class  
+
+#### backend/source/: Class implementations
+- **todo_storage.cpp**: Data management and CRUD operations  
+- **Tarefa.cpp**: Implementation of the Task class  
+- **Prova.cpp**: Implementation of the Exam class  
+- **Projeto.cpp**: Implementation of the Project class  
+- **Relatorio.cpp**: Implementation of the Report class  
+
+#### backend/nlohmann/: External JSON library
+- **json.hpp**: Library for JSON serialization and deserialization in C++  
+
+#### backend/data/: Data storage
+- **todos.json**: JSON file storing saved tasks  
+
+### Additional files
+- **package.json**: Node.js project configuration  
+- **README.md**: Project documentation  
+
 
 ### Usage
 
