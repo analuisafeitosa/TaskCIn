@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para formatar datas
     function formatDate(dateString) {
         if (!dateString) return '-';
-        const date = new Date(dateString);
-        return date.toLocaleDateString();
+        const date = new Date(dateString + 'T00:00:00');
+        return date.toLocaleDateString('pt-BR');
     }
 
     function fetchMatriz(){
