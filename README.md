@@ -160,3 +160,22 @@ npm start
 
 Developed as an academic project to demonstrate the use of C++ with inheritance and polymorphism, integrated with a modern web interface.
 
+## Imagens/ Images
+![image](https://github.com/user-attachments/assets/597bf356-d8c0-4517-8398-2ad21b4cc62b)
+![image](https://github.com/user-attachments/assets/b92e3871-78b4-42f7-826b-b3953d4ec01d)
+![image](https://github.com/user-attachments/assets/a882409b-7d06-4462-9a1c-5afbaeae0837)
+![image](https://github.com/user-attachments/assets/f0502a11-ca64-42ba-8401-4d9940db4e65)
+![image](https://github.com/user-attachments/assets/0cf293a2-da71-4ce2-a336-a5aac1076ac7)
+![image](https://github.com/user-attachments/assets/59019027-06ea-40c2-a438-1f8ceb1fb199)
+
+
+
+
+
+
+
+
+
+
+
+
