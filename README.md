@@ -71,6 +71,15 @@ npm start
 - **Editar/Excluir**: Use os botões na lista de tarefas
 - **Visualizar matriz**: Acesse a página "MATRIZ" para ver suas tarefas organizadas por prioridade
 
+### Recursos
+
+- 📊 **Matriz de Eisenhower** para priorização de tarefas
+- 🎓 **Gerenciamento de diferentes tipos de atividades acadêmicas**
+- 📝 **Interface intuitiva** para adicionar, editar e excluir tarefas
+- 🔄 **Atualizações em tempo real** da interface
+
+  Desenvolvido como projeto acadêmico para demonstrar o uso de C++ com herança e polimorfismo, integrado a uma interface web moderna.
+
 ---
 
 ## 🇬🇧 English
@@ -141,13 +150,13 @@ npm start
 - **Edit/Delete**: Use the buttons in the task list
 - **View matrix**: Access the "MATRIZ" page to see your tasks organized by priority
 
----
 
-### Recursos / Features
+### Features
 
-- 📊 **Matriz de Eisenhower** para priorização de tarefas
-- 🎓 **Gerenciamento de diferentes tipos de atividades acadêmicas**
-- 📝 **Interface intuitiva** para adicionar, editar e excluir tarefas
-- 🔄 **Atualizações em tempo real** da interface
+- 📊 **Eisenhower Matrix** for prioritizing tasks
+- 🎓 **Management of different types of academic activities**
+- 📝 **Intuitive interface** for adding, editing and deleting tasks
+- 🔄 **Real-time updates** of the interface
 
-Desenvolvido como projeto acadêmico para demonstrar o uso de C++ com herança e polimorfismo, integrado a uma interface web moderna.
+Developed as an academic project to demonstrate the use of C++ with inheritance and polymorphism, integrated with a modern web interface.
+
