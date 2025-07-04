@@ -9,7 +9,7 @@ void Projeto::to_json(nlohmann::json& j) const {
         {"materia", getMateria()},          // Matéria do projeto
         {"complexidade", getComplexidade()},// Nível de complexidade
         {"completed", isCompleted()},        // Status de conclusão
-        {"important", isImportant()},
-        {"urgent", isUrgent()}
+        {"important", isImportant()},       // Importancia
+        {"urgent", isUrgent()}              // Urgencia
     };
 }

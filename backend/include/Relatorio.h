@@ -12,13 +12,13 @@ public:
         : TodoItem(task, deadline, "relatorio"), 
           materia(materia), plataforma(plataforma) {}
     
-    // Copy constructor
+    // Copy constructor para realizar cópias completas dos dados dos objeto
     Relatorio(const Relatorio& other)
         : TodoItem(other), 
           materia(other.materia), 
           plataforma(other.plataforma) {}
 
-    void to_json(nlohmann::json& j) const override;
+    void to_json(nlohmann::json& j) const override; // Polimorfismo
 
     // Getters
     std::string getMateria() const { return materia; }

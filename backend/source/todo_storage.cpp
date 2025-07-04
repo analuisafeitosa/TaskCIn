@@ -12,21 +12,29 @@
 #include "../include/Projeto.h"
 #include "../include/Relatorio.h"
 
-using json = nlohmann::json;
+using json = nlohmann::json; //Alias para facilitar uso da biblioteca JSON
 
-const std::string DATA_FILE = "data/todos.json";
+const std::string DATA_FILE = "data/todos.json";    // Caminho do arquivo de persistência
 
+// Função que carrega todas as tarefas do arquivo JSON e cria objetos C++
 std::vector<std::shared_ptr<TodoItem>> loadTodos() {
+    // Container polimórfico que pode armazenar diferentes tipos de tarefa
     std::vector<std::shared_ptr<TodoItem>> todos;
+
+    // Tenta abrir arquivo de dados
     std::ifstream file(DATA_FILE);
     if (file.is_open()) {
         nlohmann::json todos_json;
         try {
-            file >> todos_json;
+            file >> todos_json;     // Lê JSON do arquivo
+            // Percorre cada item JSON e cria objeto C++ correspondente
             for (const auto& j : todos_json) {
                 std::string tipo = j.value("tipo", "tarefa");
+
+                // POLIMORFISMO: Cria objeto específico baseado no tipo
                 if (tipo == "tarefa") {
                     auto t = std::make_shared<Tarefa>();
+                    // Configura objeto usando dados do JSON
                     t->setTask(j.value("task", ""));
                     t->setImportant(j.value("important", false));
                     t->setUrgent(j.value("urgent", false));
@@ -40,7 +48,7 @@ std::vector<std::shared_ptr<TodoItem>> loadTodos() {
                     t->setImportant(j.value("important", false));
                     t->setUrgent(j.value("urgent", false));
                     t->setDeadline(j.value("deadline", ""));
-                    t->setMateria(j.value("materia", ""));
+                    t->setMateria(j.value("materia", ""));   // Campo específico da Prova
                     t->setCompleted(j.value("completed", false));
                     todos.push_back(t);
                 } else if (tipo == "projeto") {
@@ -50,7 +58,7 @@ std::vector<std::shared_ptr<TodoItem>> loadTodos() {
                     t->setUrgent(j.value("urgent", false));
                     t->setDeadline(j.value("deadline", ""));
                     t->setMateria(j.value("materia", ""));
-                    t->setComplexidade(j.value("complexidade", ""));
+                    t->setComplexidade(j.value("complexidade", ""));// Campos específicos do Projeto
                     t->setCompleted(j.value("completed", false));
                     todos.push_back(t);
                 } else if (tipo == "relatorio") {
@@ -60,50 +68,64 @@ std::vector<std::shared_ptr<TodoItem>> loadTodos() {
                     t->setUrgent(j.value("urgent", false));                    
                     t->setDeadline(j.value("deadline", ""));
                     t->setMateria(j.value("materia", ""));
-                    t->setPlataforma(j.value("plataforma", ""));
+                    t->setPlataforma(j.value("plataforma", ""));    // Campos específicos do Relatório
                     t->setCompleted(j.value("completed", false));
                     todos.push_back(t);
                 }
             }
         } catch (...) {}
+         // Captura qualquer erro de parsing JSON - arquivo corrompido, etc.
         file.close();
     }
-    return todos;
+    return todos;  // Retorna container com objetos polimórficos
 }
 
+// Função que salva todas as tarefas em arquivo JSON usando polimorfismo
 void saveTodos(const std::vector<std::shared_ptr<TodoItem>>& todos) {
-    nlohmann::json todos_json = nlohmann::json::array();
+    nlohmann::json todos_json = nlohmann::json::array();    // Cria array JSON vazio
+
+    // POLIMORFISMO EM AÇÃO: Runtime dispatch
     for (const auto& item : todos) {
         nlohmann::json j;
-        item->to_json(j);
+        item->to_json(j); // Chama método específico de cada classe
+        // Se item é Tarefa*, chama Tarefa::to_json()
+        // Se item é Prova*, chama Prova::to_json()
+        // Virtual table determina qual método executar
         todos_json.push_back(j);
     }
+
+    // Salva JSON formatado no arquivo
     std::ofstream file(DATA_FILE);
     if (file.is_open()) {
-        file << todos_json.dump(4);
+        file << todos_json.dump(4); 
         file.close();
     }
 }
+
 int main(int argc, char* argv[]) {
+    // Validação básica de argumentos
     if (argc < 2) {
         std::cerr << "No command provided.\n";
         return 1;
     }
-    std::string command = argv[1];
-    std::vector<std::shared_ptr<TodoItem>> todos = loadTodos();
+    std::string command = argv[1];  // Primeiro argumento = comando
+    std::vector<std::shared_ptr<TodoItem>> todos = loadTodos();  // Carrega dados existentes
 
+    // COMANDO GET: Lista todas as tarefas
     if (command == "get") {
         json todos_json = json::array();
         for (const auto& item : todos) {
             json j;
-            item->to_json(j);
+            item->to_json(j);   // Polimorfismo: cada classe serializa diferente
             std::cerr << item->isImportant() << std::endl;
             todos_json.push_back(j);
         }
-        std::cout << todos_json.dump();
+        std::cout << todos_json.dump(); // Saída para stdout (consumida pelo Node.js)
+
+        // COMANDO ADD: Adiciona nova tarefa
     } else if (command == "add" && argc >= 4) {
-        std::string tipo = argv[2];
-        std::shared_ptr<TodoItem> item;
+        std::string tipo = argv[2]; // Tipo da tarefa
+        std::shared_ptr<TodoItem> item; // Ponteiro polimórfico
 
         if (tipo == "tarefa" && argc >= 7) {
             auto t = std::make_shared<Tarefa>();
@@ -113,7 +135,7 @@ int main(int argc, char* argv[]) {
             t->setDescription(argv[4+2]);
             t->setDeadline(argv[5+2]);
             t->setCompleted(false);
-            item = t;
+            item = t;   
         } else if (tipo == "prova" && argc >= 6) {
             auto t = std::make_shared<Prova>();
             t->setImportant(std::string(argv[3]) == std::string("true"));
@@ -147,18 +169,20 @@ int main(int argc, char* argv[]) {
             std::cerr << "Invalid arguments for type.\n";
             return 1;
         }
-        todos.push_back(item);
-        saveTodos(todos);
-        std::cout << "Added\n";
+        todos.push_back(item);  // Adiciona ao container polimórfico
+        saveTodos(todos);   // Persiste no arquivo
+        std::cout << "Added\n"; // Confirma para Node.js
     } 
-    // SUBSTITUA O SEU BLOCO "edit" INTEIRO POR ESTE:
+    
+    // COMANDO EDIT: Edita tarefa existente
 else if (command == "edit" && argc >= 5) {
     int idx = std::stoi(argv[2]);
     std::string tipo = argv[3];
     if (idx >= 0 && idx < todos.size()) {
-        // 1. Salva o status de conclusão atual em UMA variável com nome claro.
+        // Preserva status de conclusão que é muito importante para UX
         bool status_concluido_salvo = todos[idx]->isCompleted();
 
+        // Recria objeto com novos dados, mas preserva status
         if (tipo == "tarefa" && argc >= 9) { // Argc corrigido
             auto t = std::make_shared<Tarefa>();
             t->setImportant(std::string(argv[4]) == "true");
@@ -168,7 +192,7 @@ else if (command == "edit" && argc >= 5) {
             t->setDeadline(argv[8]);
             // 2. Restaura o status de conclusão usando a variável que criamos.
             t->setCompleted(status_concluido_salvo);
-            todos[idx] = t;
+            todos[idx] = t; // Substitui objeto no container
         } else if (tipo == "prova" && argc >= 9) { // Argc corrigido
             auto t = std::make_shared<Prova>();
             t->setImportant(std::string(argv[4]) == "true");
@@ -205,18 +229,19 @@ else if (command == "edit" && argc >= 5) {
             std::cerr << "Argumentos invalidos para o tipo ou comando.\n";
             return 1;
         }
-        saveTodos(todos);
-        std::cout << "Edited\n";
+        saveTodos(todos);   // Persiste mudanças
+        std::cout << "Edited\n";    // Confirma sucesso
     } else {
         std::cerr << "Invalid index\n";
         return 1;
     }
 }
+// COMANDO DELETE: Remove tarefa
 else if (command == "delete" && argc >= 3) {
     int idx = std::stoi(argv[2]);
     if (idx >= 0 && idx < todos.size()) {
-        todos.erase(todos.begin() + idx);
-        saveTodos(todos);
+        todos.erase(todos.begin() + idx);    // Remove do container
+        saveTodos(todos);   // Persiste mudança
         std::cout << "Deleted\n";
     } else {
         std::cerr << "Invalid index\n";
@@ -224,11 +249,12 @@ else if (command == "delete" && argc >= 3) {
     }
 }
 
+// COMANDO COMPLETE: Marca como concluída
 else if (command == "complete" && argc >= 3) {
     int idx = std::stoi(argv[2]);
     if (idx >= 0 && idx < todos.size()) {
-        todos[idx]->setCompleted(true);
-        saveTodos(todos);
+        todos[idx]->setCompleted(true); // Usa polimorfismo método herdado
+        saveTodos(todos);   // Persiste mudança
         std::cout << "Completed\n";
     } else {
         std::cerr << "Invalid index\n";

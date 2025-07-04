@@ -8,7 +8,7 @@ void Prova::to_json(nlohmann::json& j) const {
         {"deadline", getDeadline()},   // Data da prova
         {"materia", getMateria()},     // Matéria da prova
         {"completed", isCompleted()},   // Status de conclusão
-        {"important", isImportant()},
-        {"urgent", isUrgent()}
+        {"important", isImportant()},   // Importancia
+        {"urgent", isUrgent()}          // Urgencia
     };
 }

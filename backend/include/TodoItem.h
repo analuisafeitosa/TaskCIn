@@ -13,13 +13,13 @@ public:
              const std::string& tipo = "", bool completed = false)
         : task(task), deadline(deadline), tipo(tipo), completed(completed) {}
     
-    // Copy constructor
+    // Copy constructor para realizar cópias completas dos dados dos objeto
     TodoItem(const TodoItem& other)
         : task(other.task), deadline(other.deadline),
           tipo(other.tipo), completed(other.completed) {}
 
     virtual ~TodoItem() = default;
-    virtual void to_json(nlohmann::json& j) const = 0;
+    virtual void to_json(nlohmann::json& j) const = 0; // Polimorfismo
 
     // Getters
     std::string getTipo() const { return tipo; }

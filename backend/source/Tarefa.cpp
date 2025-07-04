@@ -8,7 +8,7 @@ void Tarefa::to_json(nlohmann::json& j) const {
         {"description", getDescription()},// Descrição da tarefa
         {"deadline", getDeadline()},      // Prazo da tarefa
         {"completed", isCompleted()},      // Status de conclusão
-        {"important", isImportant()},
-        {"urgent", isUrgent()}
+        {"important", isImportant()},      // Importancia
+        {"urgent", isUrgent()}          // Urgencia
     };
 }

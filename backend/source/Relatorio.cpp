@@ -9,7 +9,7 @@ void Relatorio::to_json(nlohmann::json& j) const {
         {"materia", getMateria()},         // Matéria do relatório
         {"plataforma", getPlataforma()},   // Plataforma de entrega
         {"completed", isCompleted()},       // Status de conclusão
-        {"important", isImportant()},
-        {"urgent", isUrgent()}
+        {"important", isImportant()},       // Importancia
+        {"urgent", isUrgent()}              // Urgencia
     };
 }
