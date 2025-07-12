@@ -5,106 +5,236 @@
   <title>TaskCIn - Gerenciador de Tarefas Acadêmicas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
+    :root {
+      --primary: #820000;
+      --primary-light: #b30000;
+      --background: #f9f9f9;
+      --card-bg: #ffffff;
+      --text: #333333;
+      --text-light: #666666;
+      --border: #e0e0e0;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-      max-width: 900px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      max-width: 1000px;
       margin: auto;
       padding: 2rem;
+      line-height: 1.6;
     }
+    
     h1, h2 {
-      color: #820000;
+      color: var(--primary);
+      margin: 1.5rem 0 1rem;
+      font-weight: 600;
     }
-    ul {
-      padding-left: 1.5rem;
+    
+    h1 {
+      font-size: 2.5rem;
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
     }
+    
+    h2 {
+      font-size: 1.8rem;
+      position: relative;
+      padding-left: 0.8rem;
+    }
+    
+    h2::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background-color: var(--primary);
+      border-radius: 4px;
+    }
+    
+    p, li {
+      margin-bottom: 0.8rem;
+    }
+    
+    ul, ol {
+      padding-left: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+    
     .print {
-      margin: 1rem 0;
-      border: 1px solid #ccc;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
       max-width: 100%;
+      transition: transform 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
+    
+    .print:hover {
+      transform: scale(1.02);
+    }
+    
     a {
-      color: #820000;
+      color: var(--primary);
       text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      border-bottom: 1px dotted var(--primary);
+      padding-bottom: 1px;
     }
+    
+    a:hover {
+      color: var(--primary-light);
+    }
+    
     code {
-      background-color: #eee;
+      background-color: #f0f0f0;
       padding: 2px 6px;
       border-radius: 4px;
+      font-family: 'Consolas', monospace;
+      font-size: 0.9em;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .section {
+      background-color: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: box-shadow 0.3s ease;
+    }
+    
+    .section:hover {
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .team-member {
+      display: inline-block;
+      margin-right: 1rem;
+      margin-bottom: 0.5rem;
+      background-color: #f0f0f0;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
   <h1>📚 TaskCIn - Gerenciador de Tarefas Acadêmicas</h1>
-  <p><strong>TaskCIn</strong> é um sistema de gerenciamento de tarefas acadêmicas que utiliza a matriz de Eisenhower para classificar atividades com base em sua <strong>importância</strong> e <strong>urgência</strong>.</p>
+  
+  <div class="section">
+    <p><strong>TaskCIn</strong> é um sistema de gerenciamento de tarefas acadêmicas que utiliza a matriz de Eisenhower para classificar atividades com base em sua <strong>importância</strong> e <strong>urgência</strong>.</p>
+  </div>
 
-  <h2>🎯 Visão Geral</h2>
-  <p>O sistema permite o gerenciamento de diversos tipos de atividades acadêmicas:</p>
-  <ul>
-    <li><strong>Tarefas</strong>: genéricas, com descrição livre</li>
-    <li><strong>Provas</strong>: com matéria associada</li>
-    <li><strong>Projetos</strong>: com matéria e nível de complexidade</li>
-    <li><strong>Relatórios</strong>: com matéria e plataforma de entrega</li>
-  </ul>
-  <p>Todas as atividades são automaticamente organizadas na <strong>Matriz de Eisenhower</strong>.</p>
+  <div class="section">
+    <h2>🎯 Visão Geral</h2>
+    <p>O sistema permite o gerenciamento de diversos tipos de atividades acadêmicas:</p>
+    <ul>
+      <li><strong>Tarefas</strong>: genéricas, com descrição livre</li>
+      <li><strong>Provas</strong>: com matéria associada</li>
+      <li><strong>Projetos</strong>: com matéria e nível de complexidade</li>
+      <li><strong>Relatórios</strong>: com matéria e plataforma de entrega</li>
+    </ul>
+    <p>Todas as atividades são automaticamente organizadas na <strong>Matriz de Eisenhower</strong>.</p>
+  </div>
 
-  <h2>🧪 Tecnologias Utilizadas</h2>
-  <ul>
-    <li><strong>Backend</strong>: C++ (lógica de negócios) + Node.js (API REST)</li>
-    <li><strong>Frontend</strong>: HTML, CSS e JavaScript</li>
-    <li><strong>Persistência</strong>: Arquivos JSON</li>
-  </ul>
+  <div class="section">
+    <h2>🧪 Tecnologias Utilizadas</h2>
+    <ul>
+      <li><strong>Backend</strong>: C++ (lógica de negócios) + Node.js (API REST)</li>
+      <li><strong>Frontend</strong>: HTML, CSS e JavaScript</li>
+      <li><strong>Persistência</strong>: Arquivos JSON</li>
+    </ul>
+  </div>
 
-  <h2>🖥️ Estrutura do Projeto</h2>
-  <ul>
-    <li><code>frontend/</code>: Interface do usuário</li>
-    <li><code>backend/</code>: Servidor, lógica e dados</li>
-    <li><code>backend/include/</code>: Headers das classes C++</li>
-    <li><code>backend/source/</code>: Implementações das classes</li>
-    <li><code>backend/data/</code>: Armazenamento em <code>todos.json</code></li>
-  </ul>
+  <div class="section">
+    <h2>🖥️ Estrutura do Projeto</h2>
+    <ul>
+      <li><code>frontend/</code>: Interface do usuário</li>
+      <li><code>backend/</code>: Servidor, lógica e dados</li>
+      <li><code>backend/include/</code>: Headers das classes C++</li>
+      <li><code>backend/source/</code>: Implementações das classes</li>
+      <li><code>backend/data/</code>: Armazenamento em <code>todos.json</code></li>
+    </ul>
+  </div>
 
-  <h2>⚙️ Pré-requisitos</h2>
-  <ul>
-    <li>Node.js</li>
-    <li>npm</li>
-    <li>Compilador C++</li>
-    <li>Git</li>
-  </ul>
+  <div class="section">
+    <h2>⚙️ Pré-requisitos</h2>
+    <ul>
+      <li>Node.js</li>
+      <li>npm</li>
+      <li>Compilador C++</li>
+      <li>Git</li>
+    </ul>
+  </div>
 
-  <h2>🚀 Como Executar</h2>
-  <ol>
-    <li>Clone o repositório</li>
-    <li>Compile o código C++:<br>
-      <code>cd backend/source</code><br>
-      <code>g++ todo_storage.cpp Tarefa.cpp Prova.cpp Projeto.cpp Relatorio.cpp -o ../todo_storage</code>
-    </li>
-    <li>Inicie o servidor com:<br><code>npm start</code></li>
-    <li>Acesse <code>http://localhost:3000</code> no navegador</li>
-  </ol>
+  <div class="section">
+    <h2>🚀 Como Executar</h2>
+    <ol>
+      <li>Clone o repositório</li>
+      <li>Compile o código C++:<br>
+        <code>cd backend/source</code><br>
+        <code>g++ todo_storage.cpp Tarefa.cpp Prova.cpp Projeto.cpp Relatorio.cpp -o ../todo_storage</code>
+      </li>
+      <li>Inicie o servidor com:<br><code>npm start</code></li>
+      <li>Acesse <code>http://localhost:3000</code> no navegador</li>
+    </ol>
+  </div>
 
-  <h2>🧩 Funcionalidades</h2>
-  <ul>
-    <li>📊 Matriz de Eisenhower para priorização</li>
-    <li>🎓 Suporte a diferentes tipos de atividades acadêmicas</li>
-    <li>📝 Interface intuitiva para adicionar, editar e excluir tarefas</li>
-    <li>🔄 Atualização em tempo real</li>
-  </ul>
+  <div class="section">
+    <h2>🧩 Funcionalidades</h2>
+    <ul>
+      <li>📊 Matriz de Eisenhower para priorização</li>
+      <li>🎓 Suporte a diferentes tipos de atividades acadêmicas</li>
+      <li>📝 Interface intuitiva para adicionar, editar e excluir tarefas</li>
+      <li>🔄 Atualização em tempo real</li>
+    </ul>
+  </div>
 
-  <h2>🖼️ Imagens do Projeto</h2>
-  <img src="screenshot1.png" alt="Tela inicial" class="print" />
-  <img src="screenshot2.png" alt="Tela da matriz" class="print" />
+  <div class="section">
+    <h2>🖼️ Imagens do Projeto</h2>
+    <img src="images/screenshot1.png" alt="Home" class="print" />
+    <img src="images/screenshot2.png" alt="Tela da matriz" class="print" />
+    <img src="images/screenshot3.png" alt="Tela de Tarefas" class="print" />
+  </div>
 
-  <h2>👩‍💻 Equipe</h2>
-  <ul>
-    <li>Ana Luisa Feitosa</li>
-    <li>Sofia Ribeiro</li>
-    <li>Fernanda Pascoal</li>
-    <li>Lucas dos Santos</li>
-  </ul>
+  <div class="section">
+    <h2>👩‍💻 Equipe</h2>
+    <div>
+      <span class="team-member">Ana Luisa Feitosa</span>
+      <span class="team-member">Sofia Ribeiro</span>
+      <span class="team-member">Fernanda Pascoal</span>
+      <span class="team-member">Lucas dos Santos</span>
+    </div>
+  </div>
 
-  <h2>🔗 Repositório no GitHub</h2>
-  <p><a href="https://github.com/analuisafeitosa/TaskCIn" target="_blank">https://github.com/analuisafeitosa/TaskCIn</a></p>
+  <div class="section">
+    <h2>🔗 Repositório no GitHub</h2>
+    <p><a href="https://github.com/analuisafeitosa/TaskCIn" target="_blank">https://github.com/analuisafeitosa/TaskCIn</a></p>
+  </div>
 </body>
 </html>
