@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>TaskCIn - Gerenciador de Tarefas Acadêmicas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+    }
+    h1, h2 {
+      color: #820000;
+    }
+    ul {
+      padding-left: 1.5rem;
+    }
+    .print {
+      margin: 1rem 0;
+      border: 1px solid #ccc;
+      max-width: 100%;
+    }
+    a {
+      color: #820000;
+      text-decoration: none;
+    }
+    code {
+      background-color: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 TaskCIn - Gerenciador de Tarefas Acadêmicas</h1>
+  <p><strong>TaskCIn</strong> é um sistema de gerenciamento de tarefas acadêmicas que utiliza a matriz de Eisenhower para classificar atividades com base em sua <strong>importância</strong> e <strong>urgência</strong>.</p>
+
+  <h2>🎯 Visão Geral</h2>
+  <p>O sistema permite o gerenciamento de diversos tipos de atividades acadêmicas:</p>
+  <ul>
+    <li><strong>Tarefas</strong>: genéricas, com descrição livre</li>
+    <li><strong>Provas</strong>: com matéria associada</li>
+    <li><strong>Projetos</strong>: com matéria e nível de complexidade</li>
+    <li><strong>Relatórios</strong>: com matéria e plataforma de entrega</li>
+  </ul>
+  <p>Todas as atividades são automaticamente organizadas na <strong>Matriz de Eisenhower</strong>.</p>
+
+  <h2>🧪 Tecnologias Utilizadas</h2>
+  <ul>
+    <li><strong>Backend</strong>: C++ (lógica de negócios) + Node.js (API REST)</li>
+    <li><strong>Frontend</strong>: HTML, CSS e JavaScript</li>
+    <li><strong>Persistência</strong>: Arquivos JSON</li>
+  </ul>
+
+  <h2>🖥️ Estrutura do Projeto</h2>
+  <ul>
+    <li><code>frontend/</code>: Interface do usuário</li>
+    <li><code>backend/</code>: Servidor, lógica e dados</li>
+    <li><code>backend/include/</code>: Headers das classes C++</li>
+    <li><code>backend/source/</code>: Implementações das classes</li>
+    <li><code>backend/data/</code>: Armazenamento em <code>todos.json</code></li>
+  </ul>
+
+  <h2>⚙️ Pré-requisitos</h2>
+  <ul>
+    <li>Node.js</li>
+    <li>npm</li>
+    <li>Compilador C++</li>
+    <li>Git</li>
+  </ul>
+
+  <h2>🚀 Como Executar</h2>
+  <ol>
+    <li>Clone o repositório</li>
+    <li>Compile o código C++:<br>
+      <code>cd backend/source</code><br>
+      <code>g++ todo_storage.cpp Tarefa.cpp Prova.cpp Projeto.cpp Relatorio.cpp -o ../todo_storage</code>
+    </li>
+    <li>Inicie o servidor com:<br><code>npm start</code></li>
+    <li>Acesse <code>http://localhost:3000</code> no navegador</li>
+  </ol>
+
+  <h2>🧩 Funcionalidades</h2>
+  <ul>
+    <li>📊 Matriz de Eisenhower para priorização</li>
+    <li>🎓 Suporte a diferentes tipos de atividades acadêmicas</li>
+    <li>📝 Interface intuitiva para adicionar, editar e excluir tarefas</li>
+    <li>🔄 Atualização em tempo real</li>
+  </ul>
+
+  <h2>🖼️ Imagens do Projeto</h2>
+  <img src="screenshot1.png" alt="Tela inicial" class="print" />
+  <img src="screenshot2.png" alt="Tela da matriz" class="print" />
+
+  <h2>👩‍💻 Equipe</h2>
+  <ul>
+    <li>Ana Luisa Feitosa</li>
+    <li>Sofia Ribeiro</li>
+    <li>Fernanda Pascoal</li>
+    <li>Lucas dos Santos</li>
+  </ul>
+
+  <h2>🔗 Repositório no GitHub</h2>
+  <p><a href="https://github.com/analuisafeitosa/TaskCIn" target="_blank">https://github.com/analuisafeitosa/TaskCIn</a></p>
+</body>
+</html>
