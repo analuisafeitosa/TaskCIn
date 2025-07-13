@@ -3,6 +3,7 @@
 TaskCIn é um sistema de gerenciamento de tarefas acadêmicas que utiliza a matriz de Eisenhower para classificar atividades com base em sua importância e urgência.
 
 ## 🇧🇷 Português
+[Accesse a page do projeto aqui](https://analuisafeitosa.github.io/TaskCIn/)
 
 ### Visão Geral
 
@@ -99,6 +100,7 @@ Desenvolvido como projeto acadêmico para demonstrar o uso de C++ com herança e
 ---
 
 ## 🇬🇧 English
+[Access the project page here](https://analuisafeitosa.github.io/TaskCIn/)
 
 ### Overview
 
